@@ -1,0 +1,13 @@
+{
+  "name": "mobile",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Clayton Weller",
+  "license": "MIT",
+  "scripts": {
+    "start": "./node_modules/.bin/expo"
+  },
+  "devDependencies": {
+    "expo-cli": "^5.2.0"
+  }
+}
