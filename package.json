@@ -8,7 +8,6 @@
     "start": "./node_modules/.bin/expo"
   },
   "devDependencies": {
-    "expo-cli": "^5.2.0",
     "serverless": "^3.2.1"
   }
 }
