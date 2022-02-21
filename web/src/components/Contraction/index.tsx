@@ -5,7 +5,7 @@ export default function Contraction(props: { transitionScreen: (screenName?: str
   return (
     <div>
       <div>Contraction</div>
-      <button onClick={props.transitionScreen('home')}>Labor</button>
+      <button onClick={props.transitionScreen('intensity')}>Release</button>
     </div >
   );
 }

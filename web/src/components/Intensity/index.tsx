@@ -5,7 +5,7 @@ export default function Intesnity(props: { transitionScreen: (screenName?: strin
   return (
     <div>
       <div>Intesnity</div>
-      <button onClick={props.transitionScreen('home')}>Labor</button>
+      <button onClick={props.transitionScreen('labor')}>Labor</button>
     </div >
   );
 }
