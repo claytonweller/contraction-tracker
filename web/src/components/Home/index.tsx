@@ -1,7 +1,8 @@
 import React from 'react';
 import { backend } from '../../integrations/back-end';
+import { IStateProps } from '../../App';
 
-export default function Home(props: { transitionScreen: (screenName?: string) => () => void }) {
+export default function Home(props: IStateProps) {
   const handleClick = () => {
     const labor = backend.createLabor()
     console.log('Inside Handler', labor)

@@ -1,6 +1,7 @@
 import React from 'react';
+import { IStateProps } from '../../App';
 
-export default function Contraction(props: { transitionScreen: (screenName?: string) => void }) {
+export default function Contraction(props: IStateProps) {
 
   return (
     <div>

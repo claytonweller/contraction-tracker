@@ -10,7 +10,12 @@ export default function App() {
   const [screenName, setScreen] = useState('home');
   const laborState = useState(defaultLabor)
   const displayedScreen = getDisplayedScreen(screenName)
-  const screenWithState = withState(displayedScreen, setScreen, laborState)({ transitionScreen: () => () => undefined })
+  const defaultProps = {
+    transitionScreen: () => () => undefined,
+    labor: defaultLabor,
+    updateLabor: () => defaultLabor
+  }
+  const screenWithState = withState(displayedScreen, setScreen, laborState)(defaultProps)
 
   return (
     <div className="App">
@@ -40,4 +45,10 @@ function withState<T>(
     labor={labor}
     updateLabor={updateLabor}
   />)
+}
+
+export interface IStateProps {
+  transitionScreen: (screenName?: string) => void,
+  labor: ILabor,
+  updateLabor: (labor: ILabor) => ILabor
 }

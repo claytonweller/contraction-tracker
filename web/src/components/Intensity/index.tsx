@@ -1,6 +1,7 @@
 import React from 'react';
+import { IStateProps } from '../../App';
 
-export default function Intesnity({ transitionScreen }: { transitionScreen: (screenName?: string) => void }) {
+export default function Intesnity({ transitionScreen }: IStateProps) {
 
   return (
     <div>

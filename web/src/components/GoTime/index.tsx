@@ -1,6 +1,7 @@
 import React from 'react';
+import { IStateProps } from '../../App';
 
-export default function GoTime({ transitionScreen }: { transitionScreen: (screenName?: string) => void }) {
+export default function GoTime({ transitionScreen }: IStateProps) {
 
   return (
     <div>
