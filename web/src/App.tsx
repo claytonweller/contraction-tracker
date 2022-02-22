@@ -8,12 +8,12 @@ import { backend } from './integrations/back-end';
 export default function App() {
 
   const [screenName, setScreen] = useState('home');
-  const laborState = useState(defaultLabor)
+  const laborState = useState(defaultLabor())
   const displayedScreen = getDisplayedScreen(screenName)
   const defaultProps = {
     transitionScreen: () => () => undefined,
-    labor: defaultLabor,
-    updateLabor: () => defaultLabor
+    labor: defaultLabor(),
+    updateLabor: defaultLabor
   }
   const screenWithState = withState(displayedScreen, setScreen, laborState)(defaultProps)
 

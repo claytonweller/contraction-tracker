@@ -3,5 +3,5 @@ import { defaultLabor } from "../../utils/default-labor";
 
 export function createLabor(integration: (message: string) => void): ILabor {
   integration('CreateLabor')
-  return defaultLabor
+  return defaultLabor()
 }

@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
 import { ILabor } from "../../../types/Labor";
 
-export const defaultLabor: ILabor = {
+export const defaultLabor = (): ILabor => ({
   userId: 1,
   startTime: DateTime.now().toISO(),
   endTime: undefined,
@@ -20,4 +20,4 @@ export const defaultLabor: ILabor = {
     }
   },
   bishopScore: 0
-}
+})
