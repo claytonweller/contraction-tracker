@@ -1,9 +1,10 @@
-import React, { useState, Dispatch, SetStateAction, ComponentType } from 'react';
+import React, { useState, ComponentType, Dispatch, SetStateAction } from 'react';
 import './App.css';
 import { getDisplayedScreen } from './utils/get-displayed-screen'
 import { defaultLabor } from './utils/default-labor';
 import { ILabor } from '../../types/Labor';
 import { backend } from './integrations/back-end';
+
 
 export default function App() {
 
@@ -11,9 +12,10 @@ export default function App() {
   const laborState = useState(defaultLabor())
   const displayedScreen = getDisplayedScreen(screenName)
   const defaultProps = {
-    transitionScreen: () => () => undefined,
+    transitionToScreen: () => () => undefined,
     labor: defaultLabor(),
-    updateLabor: defaultLabor
+    updateLabor: defaultLabor,
+    createLabor: defaultLabor
   }
   const screenWithState = withState(displayedScreen, setScreen, laborState)(defaultProps)
 
@@ -26,29 +28,34 @@ export default function App() {
   );
 }
 
-
 function withState<T>(
   Component: ComponentType<T>,
   setScreen: Dispatch<SetStateAction<string>>,
   laborState: [ILabor, Dispatch<SetStateAction<ILabor>>]
 ) {
   const [labor, setLabor] = laborState
-  const transitionScreen = (screenName: string = 'home') => setScreen(screenName)
+  const transitionToScreen = (screenName: string = 'home') => setScreen(screenName)
   const updateLabor = (newLabor: ILabor) => {
     const savedLabor = backend.updateLabor(newLabor)
     setLabor(savedLabor)
   }
+  const createLabor = () => {
+    const createdLabor = backend.createLabor()
+    setLabor(createdLabor)
+  }
 
   return (props: T) => (<Component
     {...props}
-    transitionScreen={transitionScreen}
+    transitionToScreen={transitionToScreen}
     labor={labor}
     updateLabor={updateLabor}
+    createLabor={createLabor}
   />)
 }
 
 export interface IStateProps {
-  transitionScreen: (screenName?: string) => void,
+  transitionToScreen: (screenName?: string) => void,
   labor: ILabor,
   updateLabor: (labor: ILabor) => ILabor
+  createLabor: () => ILabor
 }

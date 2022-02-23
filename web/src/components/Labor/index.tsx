@@ -4,9 +4,9 @@ import { DateTime } from 'luxon';
 import { IStateProps } from '../../App';
 import HomeButton from '../shared/HomeButton';
 
-export default function Labor({ transitionScreen, labor, updateLabor }: IStateProps) {
+export default function Labor(props: IStateProps) {
+  const { transitionToScreen, labor, updateLabor } = props
   const handleClick = () => {
-    console.warn('contraction click')
     const newContraction: IContraction = {
       startTime: DateTime.now().toISO()
     }
@@ -15,19 +15,16 @@ export default function Labor({ transitionScreen, labor, updateLabor }: IStatePr
       contractions: [...labor.contractions, newContraction]
     }
     updateLabor(updatedLabor)
-    transitionScreen('contraction')
+    transitionToScreen('contraction')
   }
 
   return (
     <div>
       <div>Labor</div>
-      <HomeButton
-        transitionScreen={transitionScreen}
-        labor={labor}
-        updateLabor={updateLabor} />
+      <HomeButton {...props} />
       <button onClick={handleClick}>Contract</button>
       <div>TEMP</div>
-      <button onClick={() => transitionScreen('go-time')}>GO TIME!</button>
+      <button onClick={() => transitionToScreen('go-time')}>GO TIME!</button>
     </div >
   );
 }
