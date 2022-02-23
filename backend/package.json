@@ -1,9 +1,18 @@
 {
   "name": "contraction-tracker-backend",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "eval $(egrep -v '^#' .env | xargs) node_modules/.bin/tsc",
+    "install-prod": "yarn install --production --modules-folder ./nodejs/node_modules",
+    "deploy": "yarn build && yarn install-prod && yarn sls deploy --verbose",
+    "deploy-function": "yarn build && yarn sls deploy -f",
+    "sls": "eval $(egrep -v '^#' .env | xargs) ../node_modules/.bin/sls"
+  },
+  "author": "Clayton Weller",
   "devDependencies": {
+    "@types/node": "^17.0.21",
+    "aws-sdk": "^2.1080.0",
     "typescript": "^4.5.5"
   }
 }

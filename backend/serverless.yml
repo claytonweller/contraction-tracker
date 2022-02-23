@@ -1,0 +1,59 @@
+org: claytonweller
+service: contraction-tracker
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  timeout: 500
+  apiGateway:
+    apiKeys:
+      - contractionTracker
+
+layers:
+  contractionTrackerDependencies:
+    path: ./
+    compatibleRuntimes:
+      - nodejs14.x
+    package:
+      include:
+        - nodejs/node_modules/**
+      exclude:
+        - ./**
+
+package:
+  individually: true
+
+functions:
+  create-labor:
+    handler: handlers/labor/create.handler
+    events:
+      - http:
+        method: post          
+        path: labor/create
+        private: true
+    layers:
+      - { Ref: ContractionTrackerDependenciesLambdaLayer }
+    package:
+      include:
+        - handlers/labor/create.ts
+      exclude:
+        - ./**
+        - node_modules/**
+
+  update-labor:
+    handler: handlers/labor/update.handler
+    events:
+      - http:
+        method: post          
+        path: labor/update
+        private: true
+    layers:
+      - { Ref: ContractionTrackerDependenciesLambdaLayer }
+    package:
+      include:
+        - handlers/labor/update.ts
+      exclude:
+        - ./**
+        - node_modules/**
+
+ 
