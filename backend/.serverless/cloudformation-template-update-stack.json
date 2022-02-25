@@ -182,7 +182,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/contraction-tracker/dev/1645810928970-2022-02-25T17:42:08.970Z/create-labor.zip"
+          "S3Key": "serverless/contraction-tracker/dev/1645812498835-2022-02-25T18:08:18.835Z/create-labor.zip"
         },
         "Handler": "dist/handlers/labor/create.handler",
         "Runtime": "nodejs14.x",
@@ -212,7 +212,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/contraction-tracker/dev/1645810928970-2022-02-25T17:42:08.970Z/update-labor.zip"
+          "S3Key": "serverless/contraction-tracker/dev/1645812498835-2022-02-25T18:08:18.835Z/update-labor.zip"
         },
         "Handler": "dist/handlers/labor/update.handler",
         "Runtime": "nodejs14.x",
@@ -245,14 +245,14 @@
         "CodeSha256": "0qWXYodVc+JmkkTlj3EnPLJbTAYgJTPdpuPbhlMz7IU="
       }
     },
-    "UpdateDashlaborLambdaVersionJLCDDf0a7c5HDok70Uph5DThM88FpiDoQAnF6L3M": {
+    "UpdateDashlaborLambdaVersionrJhdUtmfnGGO5eYG07WgvH5SCjCBplBu1eBqD2ALXL0": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "UpdateDashlaborLambdaFunction"
         },
-        "CodeSha256": "B789L802mkQqrWF66/FDbZ5T3BfwiHcIFDYV9OaIOmY="
+        "CodeSha256": "ck7wwXGOIqaAUz1wAuFujkJ+oyD6+z2xUNQBJ3rvZRM="
       }
     },
     "ApiGatewayRestApi": {
@@ -398,7 +398,7 @@
         "UpdateDashlaborLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1645810922754": {
+    "ApiGatewayDeployment1645812493014": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -425,11 +425,11 @@
           }
         ]
       },
-      "DependsOn": "ApiGatewayDeployment1645810922754"
+      "DependsOn": "ApiGatewayDeployment1645812493014"
     },
     "ApiGatewayUsagePlan": {
       "Type": "AWS::ApiGateway::UsagePlan",
-      "DependsOn": "ApiGatewayDeployment1645810922754",
+      "DependsOn": "ApiGatewayDeployment1645812493014",
       "Properties": {
         "ApiStages": [
           {
@@ -528,6 +528,28 @@
           ]
         }
       }
+    },
+    "laborsTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "TableName": "laborsTable",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "N"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        }
+      }
     }
   },
   "Outputs": {
@@ -574,7 +596,7 @@
     "UpdateDashlaborLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UpdateDashlaborLambdaVersionJLCDDf0a7c5HDok70Uph5DThM88FpiDoQAnF6L3M"
+        "Ref": "UpdateDashlaborLambdaVersionrJhdUtmfnGGO5eYG07WgvH5SCjCBplBu1eBqD2ALXL0"
       },
       "Export": {
         "Name": "sls-contraction-tracker-dev-UpdateDashlaborLambdaFunctionQualifiedArn"

@@ -23,6 +23,22 @@ layers:
 package:
   individually: true
 
+resources:
+    Resources:
+      laborsTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+          TableName: laborsTable
+          AttributeDefinitions:
+            - AttributeName: id
+              AttributeType: N
+          KeySchema:
+            - AttributeName: id
+              KeyType: HASH
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+
 functions:
   create-labor:
     handler: dist/handlers/labor/create.handler
@@ -53,7 +69,7 @@ functions:
     package:
       include:
         - dist/handlers/labor/update.js
-        - dist/**
+        - dist/utils/*
       exclude:
         - ./**
         - node_modules/**
