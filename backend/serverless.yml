@@ -8,6 +8,14 @@ provider:
   apiGateway:
     apiKeys:
       - contractionTracker
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource: "*"
 
 layers:
   contractionTrackerDependencies:
@@ -30,10 +38,10 @@ resources:
         Properties:
           TableName: laborsTable
           AttributeDefinitions:
-            - AttributeName: id
-              AttributeType: N
+            - AttributeName: userId
+              AttributeType: S
           KeySchema:
-            - AttributeName: id
+            - AttributeName: userId
               KeyType: HASH
           ProvisionedThroughput:
             ReadCapacityUnits: 1

@@ -139,6 +139,16 @@
                       "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/contraction-tracker-dev*:*:*"
                     }
                   ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:Query",
+                    "dynamodb:Scan",
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem"
+                  ],
+                  "Resource": "*"
                 }
               ]
             }
@@ -167,7 +177,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/contraction-tracker/dev/1645658860700-2022-02-23T23:27:40.700Z/contractionTrackerDependencies.zip"
+          "S3Key": "serverless/contraction-tracker/dev/1645825520721-2022-02-25T21:45:20.721Z/contractionTrackerDependencies.zip"
         },
         "LayerName": "contractionTrackerDependencies",
         "CompatibleRuntimes": [
@@ -182,7 +192,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/contraction-tracker/dev/1645812498835-2022-02-25T18:08:18.835Z/create-labor.zip"
+          "S3Key": "serverless/contraction-tracker/dev/1645826926554-2022-02-25T22:08:46.554Z/create-labor.zip"
         },
         "Handler": "dist/handlers/labor/create.handler",
         "Runtime": "nodejs14.x",
@@ -212,7 +222,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/contraction-tracker/dev/1645812498835-2022-02-25T18:08:18.835Z/update-labor.zip"
+          "S3Key": "serverless/contraction-tracker/dev/1645826926554-2022-02-25T22:08:46.554Z/update-labor.zip"
         },
         "Handler": "dist/handlers/labor/update.handler",
         "Runtime": "nodejs14.x",
@@ -235,24 +245,24 @@
         "UpdateDashlaborLogGroup"
       ]
     },
-    "CreateDashlaborLambdaVersion1PSIyYCliSnhMCrF2PGoLqpeSheasb6mqe9sLr4Ml0": {
+    "CreateDashlaborLambdaVersionbu05oK2Rj21pOYivHffFRnB6qgnfcEXBSZ5C5mgY": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateDashlaborLambdaFunction"
         },
-        "CodeSha256": "0qWXYodVc+JmkkTlj3EnPLJbTAYgJTPdpuPbhlMz7IU="
+        "CodeSha256": "gpmOiGMtlBC59LFpeAfbaZDR3JQoQ6F1Irmbh7WRUuc="
       }
     },
-    "UpdateDashlaborLambdaVersionrJhdUtmfnGGO5eYG07WgvH5SCjCBplBu1eBqD2ALXL0": {
+    "UpdateDashlaborLambdaVersionZgt4i6qheSv75POw0I6nWgL1nOZV8YnMMwynLFqNA": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "UpdateDashlaborLambdaFunction"
         },
-        "CodeSha256": "ck7wwXGOIqaAUz1wAuFujkJ+oyD6+z2xUNQBJ3rvZRM="
+        "CodeSha256": "5K1pm6jhOfcGkKIzkyNsnfHZlasSi7siPcYwZbK/0h4="
       }
     },
     "ApiGatewayRestApi": {
@@ -398,7 +408,7 @@
         "UpdateDashlaborLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1645812493014": {
+    "ApiGatewayDeployment1645826920496": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -425,11 +435,11 @@
           }
         ]
       },
-      "DependsOn": "ApiGatewayDeployment1645812493014"
+      "DependsOn": "ApiGatewayDeployment1645826920496"
     },
     "ApiGatewayUsagePlan": {
       "Type": "AWS::ApiGateway::UsagePlan",
-      "DependsOn": "ApiGatewayDeployment1645812493014",
+      "DependsOn": "ApiGatewayDeployment1645826920496",
       "Properties": {
         "ApiStages": [
           {
@@ -535,13 +545,13 @@
         "TableName": "laborsTable",
         "AttributeDefinitions": [
           {
-            "AttributeName": "id",
-            "AttributeType": "N"
+            "AttributeName": "userId",
+            "AttributeType": "S"
           }
         ],
         "KeySchema": [
           {
-            "AttributeName": "id",
+            "AttributeName": "userId",
             "KeyType": "HASH"
           }
         ],
@@ -572,14 +582,14 @@
     },
     "ContractionTrackerDependenciesLambdaLayerHash": {
       "Description": "Current Lambda layer hash",
-      "Value": "765b05a5d251b92d33d2899b1b0b82bbebe0072d",
+      "Value": "7070ce2678d60704d98e5dea37d1953d65e9a0b4",
       "Export": {
         "Name": "sls-contraction-tracker-dev-ContractionTrackerDependenciesLambdaLayerHash"
       }
     },
     "ContractionTrackerDependenciesLambdaLayerS3Key": {
       "Description": "Current Lambda layer S3Key",
-      "Value": "serverless/contraction-tracker/dev/1645658860700-2022-02-23T23:27:40.700Z/contractionTrackerDependencies.zip",
+      "Value": "serverless/contraction-tracker/dev/1645825520721-2022-02-25T21:45:20.721Z/contractionTrackerDependencies.zip",
       "Export": {
         "Name": "sls-contraction-tracker-dev-ContractionTrackerDependenciesLambdaLayerS3Key"
       }
@@ -587,7 +597,7 @@
     "CreateDashlaborLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateDashlaborLambdaVersion1PSIyYCliSnhMCrF2PGoLqpeSheasb6mqe9sLr4Ml0"
+        "Ref": "CreateDashlaborLambdaVersionbu05oK2Rj21pOYivHffFRnB6qgnfcEXBSZ5C5mgY"
       },
       "Export": {
         "Name": "sls-contraction-tracker-dev-CreateDashlaborLambdaFunctionQualifiedArn"
@@ -596,7 +606,7 @@
     "UpdateDashlaborLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UpdateDashlaborLambdaVersionrJhdUtmfnGGO5eYG07WgvH5SCjCBplBu1eBqD2ALXL0"
+        "Ref": "UpdateDashlaborLambdaVersionZgt4i6qheSv75POw0I6nWgL1nOZV8YnMMwynLFqNA"
       },
       "Export": {
         "Name": "sls-contraction-tracker-dev-UpdateDashlaborLambdaFunctionQualifiedArn"

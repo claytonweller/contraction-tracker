@@ -4,13 +4,17 @@
   "license": "MIT",
   "scripts": {
     "clear-build": "if [ -d \"./dist\" ]; then rm -r dist; fi",
-    "build": "yarn clear-build && mkdir dist && eval $(egrep -v '^#' .env | xargs) node_modules/.bin/tsc",
-    "install-prod": "yarn install --production --modules-folder ./nodejs/node_modules",
+    "build": "yarn && yarn clear-build && mkdir dist && eval $(egrep -v '^#' .env | xargs) node_modules/typescript/bin/tsc",
+    "clear-prod": "if [ -d \"./nodejs/node_modules\" ]; then rm -r nodejs/node_modules; fi",
+    "install-prod": "yarn clear-prod && yarn install --production --modules-folder ./nodejs/node_modules",
     "deploy": "yarn build && yarn install-prod && yarn sls deploy --verbose",
     "deploy-function": "yarn build && yarn sls deploy -f",
     "sls": "eval $(egrep -v '^#' .env | xargs) ../node_modules/.bin/sls"
   },
   "author": "Clayton Weller",
+  "dependencies": {
+    "luxon": "^2.3.1"
+  },
   "devDependencies": {
     "@types/node": "^17.0.21",
     "aws-sdk": "^2.1080.0",

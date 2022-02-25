@@ -8,17 +8,17 @@ export async function createLabor(newLabor) {
       userId: "123"
     }
   }
-  const existingLabors = await dynamo.get(getParams).promise()
-
+  const response = await dynamo.get(getParams).promise()
+  const existingLabors = response?.Item?.labors || []
   const labor = {
     userId: "123",
-    labors: [...existingLabors?.Item?.labors, newLabor]
-  }
+    labors: [...existingLabors, newLabor]
+  };
   const laborInfo = {
     TableName: 'laborsTable',
     Item: labor,
   };
   const result = await dynamo.put(laborInfo).promise()
   console.warn(result)
-  return result
+  return labor
 }
