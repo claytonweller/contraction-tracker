@@ -1,4 +1,4 @@
-import { ILabor } from "../../../types/Labor"
+import { ILabor } from "../../types/Labor"
 
 export const modifyLastContraction = (
   labor: ILabor,

@@ -24,5 +24,8 @@
   },
   "include": [
     "app"
+  ],
+  "exclude": [
+    "app/types/**/*"
   ]
 }

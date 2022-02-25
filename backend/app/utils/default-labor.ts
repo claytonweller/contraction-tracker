@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { ILabor } from "../../types/Labor";
+import { ILabor } from "../types/Labor";
 
 export const defaultLabor = (): ILabor => ({
   userId: 1,

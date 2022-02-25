@@ -1,7 +1,6 @@
 import React from 'react';
 import { IStateProps } from '../../App';
 import { DateTime } from 'luxon';
-import { IContraction } from '../../../../types/Contraction';
 import { modifyLastContraction } from '../../utils/updateLastContraction';
 
 export default function Contraction({ transitionToScreen, labor, updateLabor }: IStateProps) {

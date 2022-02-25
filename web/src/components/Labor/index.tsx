@@ -1,5 +1,5 @@
 import React from 'react';
-import { IContraction } from '../../../../types/Contraction';
+import { IContraction } from '../../../types/Contraction';
 import { DateTime } from 'luxon';
 import { IStateProps } from '../../App';
 import HomeButton from '../shared/HomeButton';

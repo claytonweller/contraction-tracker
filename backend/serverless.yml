@@ -52,7 +52,8 @@ functions:
     package:
       include:
         - dist/handlers/labor/create.js
-        - dist/utils/*
+        - dist/integrations/**
+        - dist/utils/**
       exclude:
         - ./**
         - node_modules/**
@@ -69,7 +70,8 @@ functions:
     package:
       include:
         - dist/handlers/labor/update.js
-        - dist/utils/*
+        - dist/integrations/**
+        - dist/utils/**
       exclude:
         - ./**
         - node_modules/**

@@ -1,6 +1,6 @@
 import { createLabor } from "./create-labor"
 import { updateLabor } from "./update-labor"
-import { ILabor } from "../../../../types/Labor"
+import { ILabor } from "../../../types/Labor"
 
 const integration = (message: string) => console.warn('PlaceholderIntegration - ', message)
 

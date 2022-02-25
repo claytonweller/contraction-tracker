@@ -2,7 +2,7 @@ import React, { useState, ComponentType, Dispatch, SetStateAction } from 'react'
 import './App.css';
 import { getDisplayedScreen } from './utils/get-displayed-screen'
 import { defaultLabor } from './utils/default-labor';
-import { ILabor } from '../../types/Labor';
+import { ILabor } from '../types/Labor';
 import { backend } from './integrations/back-end';
 
 
