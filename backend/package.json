@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "eval $(egrep -v '^#' .env | xargs) node_modules/.bin/tsc",
+    "clear-build": "if [ -d \"./dist\" ]; then rm -r dist; fi",
+    "build": "yarn clear-build && mkdir dist && eval $(egrep -v '^#' .env | xargs) node_modules/.bin/tsc",
     "install-prod": "yarn install --production --modules-folder ./nodejs/node_modules",
     "deploy": "yarn build && yarn install-prod && yarn sls deploy --verbose",
     "deploy-function": "yarn build && yarn sls deploy -f",

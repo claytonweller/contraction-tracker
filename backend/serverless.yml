@@ -25,33 +25,35 @@ package:
 
 functions:
   create-labor:
-    handler: handlers/labor/create.handler
+    handler: dist/handlers/labor/create.handler
     events:
       - http:
-        method: post          
-        path: labor/create
-        private: true
+          method: post          
+          path: labor/create
+          private: true
     layers:
       - { Ref: ContractionTrackerDependenciesLambdaLayer }
     package:
       include:
-        - handlers/labor/create.ts
+        - dist/handlers/labor/create.js
+        - dist/utils/*
       exclude:
         - ./**
         - node_modules/**
 
   update-labor:
-    handler: handlers/labor/update.handler
+    handler: dist/handlers/labor/update.handler
     events:
       - http:
-        method: post          
-        path: labor/update
-        private: true
+          method: post          
+          path: labor/update
+          private: true
     layers:
       - { Ref: ContractionTrackerDependenciesLambdaLayer }
     package:
       include:
-        - handlers/labor/update.ts
+        - dist/handlers/labor/update.js
+        - dist/**
       exclude:
         - ./**
         - node_modules/**

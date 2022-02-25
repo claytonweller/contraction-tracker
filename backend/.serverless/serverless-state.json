@@ -200,9 +200,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/contraction-tracker/dev/1645659583427-2022-02-23T23:39:43.427Z/create-labor.zip"
+                "S3Key": "serverless/contraction-tracker/dev/1645810928970-2022-02-25T17:42:08.970Z/create-labor.zip"
               },
-              "Handler": "handlers/labor/create.handler",
+              "Handler": "dist/handlers/labor/create.handler",
               "Runtime": "nodejs14.x",
               "FunctionName": "contraction-tracker-dev-create-labor",
               "MemorySize": 1024,
@@ -230,9 +230,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/contraction-tracker/dev/1645659583427-2022-02-23T23:39:43.427Z/update-labor.zip"
+                "S3Key": "serverless/contraction-tracker/dev/1645810928970-2022-02-25T17:42:08.970Z/update-labor.zip"
               },
-              "Handler": "handlers/labor/create.handler",
+              "Handler": "dist/handlers/labor/update.handler",
               "Runtime": "nodejs14.x",
               "FunctionName": "contraction-tracker-dev-update-labor",
               "MemorySize": 1024,
@@ -253,24 +253,298 @@
               "UpdateDashlaborLogGroup"
             ]
           },
-          "CreateDashlaborLambdaVersion2PXOK4EENaaTv2WhavBg9cKQz8VdHW1NH3xugldmA": {
+          "CreateDashlaborLambdaVersion1PSIyYCliSnhMCrF2PGoLqpeSheasb6mqe9sLr4Ml0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreateDashlaborLambdaFunction"
               },
-              "CodeSha256": "jjdnw+E0kg6+2yItwEg13sW3wNYU436NyYq9pEz8fkA="
+              "CodeSha256": "0qWXYodVc+JmkkTlj3EnPLJbTAYgJTPdpuPbhlMz7IU="
             }
           },
-          "UpdateDashlaborLambdaVersiong7uqS0pW0mnRbf6Por6sptiHRoMz2bUvedTKG4trWU": {
+          "UpdateDashlaborLambdaVersionJLCDDf0a7c5HDok70Uph5DThM88FpiDoQAnF6L3M": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateDashlaborLambdaFunction"
               },
-              "CodeSha256": "jjdnw+E0kg6+2yItwEg13sW3wNYU436NyYq9pEz8fkA="
+              "CodeSha256": "B789L802mkQqrWF66/FDbZ5T3BfwiHcIFDYV9OaIOmY="
+            }
+          },
+          "ApiGatewayRestApi": {
+            "Type": "AWS::ApiGateway::RestApi",
+            "Properties": {
+              "Name": "dev-contraction-tracker",
+              "EndpointConfiguration": {
+                "Types": [
+                  "EDGE"
+                ]
+              },
+              "Policy": ""
+            }
+          },
+          "ApiGatewayResourceLabor": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Fn::GetAtt": [
+                  "ApiGatewayRestApi",
+                  "RootResourceId"
+                ]
+              },
+              "PathPart": "labor",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceLaborCreate": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceLabor"
+              },
+              "PathPart": "create",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceLaborUpdate": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceLabor"
+              },
+              "PathPart": "update",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodLaborCreatePost": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "POST",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceLaborCreate"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": true,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "CreateDashlaborLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "CreateDashlaborLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayMethodLaborUpdatePost": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "POST",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceLaborUpdate"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": true,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "UpdateDashlaborLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "UpdateDashlaborLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayDeployment1645810922754": {
+            "Type": "AWS::ApiGateway::Deployment",
+            "Properties": {
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "StageName": "dev"
+            },
+            "DependsOn": [
+              "ApiGatewayMethodLaborCreatePost",
+              "ApiGatewayMethodLaborUpdatePost"
+            ]
+          },
+          "ApiGatewayApiKey1": {
+            "Type": "AWS::ApiGateway::ApiKey",
+            "Properties": {
+              "Enabled": true,
+              "Name": "contractionTracker",
+              "StageKeys": [
+                {
+                  "RestApiId": {
+                    "Ref": "ApiGatewayRestApi"
+                  },
+                  "StageName": "dev"
+                }
+              ]
+            },
+            "DependsOn": "ApiGatewayDeployment1645810922754"
+          },
+          "ApiGatewayUsagePlan": {
+            "Type": "AWS::ApiGateway::UsagePlan",
+            "DependsOn": "ApiGatewayDeployment1645810922754",
+            "Properties": {
+              "ApiStages": [
+                {
+                  "ApiId": {
+                    "Ref": "ApiGatewayRestApi"
+                  },
+                  "Stage": "dev"
+                }
+              ],
+              "Description": "Usage plan for contraction-tracker dev stage",
+              "UsagePlanName": "contraction-tracker-dev"
+            }
+          },
+          "ApiGatewayUsagePlanKey1": {
+            "Type": "AWS::ApiGateway::UsagePlanKey",
+            "Properties": {
+              "KeyId": {
+                "Ref": "ApiGatewayApiKey1"
+              },
+              "KeyType": "API_KEY",
+              "UsagePlanId": {
+                "Ref": "ApiGatewayUsagePlan"
+              }
+            }
+          },
+          "CreateDashlaborLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "CreateDashlaborLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "UpdateDashlaborLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "UpdateDashlaborLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
             }
           }
         },
@@ -309,7 +583,7 @@
           "CreateDashlaborLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreateDashlaborLambdaVersion2PXOK4EENaaTv2WhavBg9cKQz8VdHW1NH3xugldmA"
+              "Ref": "CreateDashlaborLambdaVersion1PSIyYCliSnhMCrF2PGoLqpeSheasb6mqe9sLr4Ml0"
             },
             "Export": {
               "Name": "sls-contraction-tracker-dev-CreateDashlaborLambdaFunctionQualifiedArn"
@@ -318,10 +592,36 @@
           "UpdateDashlaborLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateDashlaborLambdaVersiong7uqS0pW0mnRbf6Por6sptiHRoMz2bUvedTKG4trWU"
+              "Ref": "UpdateDashlaborLambdaVersionJLCDDf0a7c5HDok70Uph5DThM88FpiDoQAnF6L3M"
             },
             "Export": {
               "Name": "sls-contraction-tracker-dev-UpdateDashlaborLambdaFunctionQualifiedArn"
+            }
+          },
+          "ServiceEndpoint": {
+            "Description": "URL of the service endpoint",
+            "Value": {
+              "Fn::Join": [
+                "",
+                [
+                  "https://",
+                  {
+                    "Ref": "ApiGatewayRestApi"
+                  },
+                  ".execute-api.",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix"
+                  },
+                  "/dev"
+                ]
+              ]
+            },
+            "Export": {
+              "Name": "sls-contraction-tracker-dev-ServiceEndpoint"
             }
           }
         }
@@ -413,13 +713,15 @@
     "pluginsData": {},
     "functions": {
       "create-labor": {
-        "handler": "handlers/labor/create.handler",
+        "handler": "dist/handlers/labor/create.handler",
         "events": [
           {
-            "method": "post",
-            "path": "labor/create",
-            "private": true,
-            "http": null
+            "http": {
+              "method": "post",
+              "path": "labor/create",
+              "private": true,
+              "integration": "AWS_PROXY"
+            }
           }
         ],
         "layers": {
@@ -427,7 +729,8 @@
         },
         "package": {
           "include": [
-            "handlers/labor/create.ts"
+            "dist/handlers/labor/create.js",
+            "dist/utils/*"
           ],
           "exclude": [
             "./**",
@@ -440,16 +743,18 @@
         "timeout": 500,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "CreateDashlaborLambdaVersion2PXOK4EENaaTv2WhavBg9cKQz8VdHW1NH3xugldmA"
+        "versionLogicalId": "CreateDashlaborLambdaVersion1PSIyYCliSnhMCrF2PGoLqpeSheasb6mqe9sLr4Ml0"
       },
       "update-labor": {
-        "handler": "handlers/labor/create.handler",
+        "handler": "dist/handlers/labor/update.handler",
         "events": [
           {
-            "method": "post",
-            "path": "labor/update",
-            "private": true,
-            "http": null
+            "http": {
+              "method": "post",
+              "path": "labor/update",
+              "private": true,
+              "integration": "AWS_PROXY"
+            }
           }
         ],
         "layers": {
@@ -457,7 +762,8 @@
         },
         "package": {
           "include": [
-            "handlers/labor/create.ts"
+            "dist/handlers/labor/update.js",
+            "dist/**"
           ],
           "exclude": [
             "./**",
@@ -470,7 +776,7 @@
         "timeout": 500,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateDashlaborLambdaVersiong7uqS0pW0mnRbf6Por6sptiHRoMz2bUvedTKG4trWU"
+        "versionLogicalId": "UpdateDashlaborLambdaVersionJLCDDf0a7c5HDok70Uph5DThM88FpiDoQAnF6L3M"
       }
     },
     "configValidationMode": "warn",
@@ -495,7 +801,7 @@
       },
       "package": {
         "individually": true,
-        "artifactDirectoryName": "serverless/contraction-tracker/dev/1645659583427-2022-02-23T23:39:43.427Z"
+        "artifactDirectoryName": "serverless/contraction-tracker/dev/1645810928970-2022-02-25T17:42:08.970Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -510,7 +816,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/contraction-tracker/dev/1645659583427-2022-02-23T23:39:43.427Z",
+    "artifactDirectoryName": "serverless/contraction-tracker/dev/1645810928970-2022-02-25T17:42:08.970Z",
     "artifact": ""
   }
 }
