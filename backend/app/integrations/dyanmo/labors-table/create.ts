@@ -1,24 +1,20 @@
-import * as AWS from 'aws-sdk'
+import { ILabor } from "../../../types/Labor";
+import { IBaseDynamoParams } from "../index";
 
-const dynamo = new AWS.DynamoDB.DocumentClient()
-export async function createLabor(newLabor) {
+export async function createLabor(newLabor: ILabor, client: AWS.DynamoDB.DocumentClient, baseParams: IBaseDynamoParams): Promise<ILabor> {
   const getParams = {
-    TableName: 'laborsTable',
+    ...baseParams,
     Key: {
       userId: "123"
     }
   }
-  const response = await dynamo.get(getParams).promise()
+  const response = await client.get(getParams).promise()
   const existingLabors = response?.Item?.labors || []
-  const labor = {
+  const Item = {
     userId: "123",
     labors: [...existingLabors, newLabor]
   };
-  const laborInfo = {
-    TableName: 'laborsTable',
-    Item: labor,
-  };
-  const result = await dynamo.put(laborInfo).promise()
-  console.warn(result)
-  return labor
+  const laborInfo = { ...baseParams, Item };
+  await client.put(laborInfo).promise()
+  return newLabor
 }

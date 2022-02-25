@@ -1,10 +1,10 @@
 import { withErrorHandling } from "../../utils/with-error-handling"
-import { createLabor } from "../../integrations/dyanmo/labors-table/create"
 import { defaultLabor } from "../../utils/default-labor"
+import { dynamo } from "../../integrations/dyanmo"
 
 async function createHandler(event) {
   console.log('CREATE', event)
-  const result = await createLabor(defaultLabor())
+  const result = await dynamo.labor.create(defaultLabor())
   return result
 }
 
