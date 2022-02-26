@@ -1,18 +1,17 @@
 import { ILabor } from "../../../types/Labor";
 import { IBaseDynamoParams } from "../index";
+import { getLabors } from "./get";
 
-export async function createLabor(newLabor: ILabor, client: AWS.DynamoDB.DocumentClient, baseParams: IBaseDynamoParams): Promise<ILabor> {
-  const getParams = {
-    ...baseParams,
-    Key: {
-      userId: "123"
-    }
-  }
-  const response = await client.get(getParams).promise()
-  const existingLabors = response?.Item?.labors || []
+export async function createLabor(
+  params: { newLabor: ILabor, userId: string },
+  client: AWS.DynamoDB.DocumentClient,
+  baseParams: IBaseDynamoParams
+): Promise<ILabor> {
+  const { newLabor, userId } = params
+  const labors = await getLabors({ userId }, client, baseParams)
   const Item = {
-    userId: "123",
-    labors: [...existingLabors, newLabor]
+    userId,
+    labors: [...labors, newLabor]
   };
   const laborInfo = { ...baseParams, Item };
   await client.put(laborInfo).promise()

@@ -4,7 +4,7 @@ import { dynamo } from "../../integrations/dyanmo"
 
 async function createHandler(event) {
   console.log('CREATE', event)
-  const result = await dynamo.labor.create(defaultLabor())
+  const result = await dynamo.labor.create(defaultLabor(), "123")
   return result
 }
 
