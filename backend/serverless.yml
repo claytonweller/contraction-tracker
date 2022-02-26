@@ -4,7 +4,6 @@ service: contraction-tracker
 provider:
   name: aws
   runtime: nodejs14.x
-  timeout: 500
   apiGateway:
     apiKeys:
       - contractionTracker
