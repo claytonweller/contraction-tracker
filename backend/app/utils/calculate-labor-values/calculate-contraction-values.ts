@@ -1,21 +1,9 @@
-import { ILabor } from "../types/Labor"
-import { ICalculatedLabor } from "../types/CalculatedLabor"
 import { DateTime } from "luxon"
-import { IContraction } from "../types/Contraction"
+import { IContraction } from "../../types/Contraction"
+import { ILabor } from "../../types/Labor"
+import { ICalculatedLabor } from "../../types/CalculatedLabor"
 
-export function calculateLaborValues(labor: ILabor): ILabor {
-  const contraction = calculateContractionValues(labor)
-  const rest = calculateRestValues(labor)
-  return {
-    ...labor,
-    calculated: {
-      contraction,
-      rest
-    }
-  }
-}
-
-function calculateContractionValues(labor: ILabor): ICalculatedLabor['contraction'] {
+export function calculateContractionValues(labor: ILabor): ICalculatedLabor['contraction'] {
   const { contractions } = labor
 
   const { lastHour: lastHourIntensities, all: intensities } = extractIntesities(contractions)
@@ -36,7 +24,7 @@ function extractIntesities(contractions: IContraction[]) {
     const { intensity, endTime } = contraction
     if (!endTime || !intensity) return calculated
     return addToAllAndLastHour(calculated, intensity, contraction)
-  }, { lastHour: [], all: [] })
+  }, { lastHour: [] as number[], all: [] as number[] })
 }
 
 function extractDurations(contractions: IContraction[]) {
@@ -47,7 +35,7 @@ function extractDurations(contractions: IContraction[]) {
     if (duration <= 0) return calculated
     return addToAllAndLastHour(calculated, duration, contraction)
   }, { lastHour: [], all: [] })
-}}
+}
 
 function addToAllAndLastHour(
   calculated: { all: number[], lastHour: number[] },
@@ -55,10 +43,11 @@ function addToAllAndLastHour(
   contraction: IContraction
 ) {
   const all = [...calculated.all, newValue]
-  const lastHourDurations = isInLastHour(contraction)
+  console.warn(calculated)
+  const lastHour = isInLastHour(contraction)
     ? [...calculated.lastHour, newValue]
     : calculated.lastHour
-  return { all, lastHourDurations }
+  return { all, lastHour }
 }
 
 function isInLastHour(contraction: IContraction): boolean {
@@ -76,12 +65,4 @@ function calculateDuration(startTime: string, endTime?: string): number {
   const start = DateTime.fromISO(startTime)
   const end = DateTime.fromISO(endTime)
   return end.diff(start, 'seconds').seconds
-}
-
-function calculateRestValues(labor: ILabor): ICalculatedLabor['rest'] {
-  return {
-    current: 1,
-    average: 1,
-    durations: [1]
-  }
 }

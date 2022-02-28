@@ -17,15 +17,21 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "resolveJsonModule": true,
+    "types": [
+      "@types/jest",
+      "jest",
+      "node",
+    ],
     "lib": [
       "esnext",
       "dom"
     ]
   },
-  "include": [
-    "app"
+  "typeRoots": [
+    "./node_modules/@types"
   ],
-  "exclude": [
-    "app/types/**/*"
+  "include": [
+    "app",
+    "test"
   ]
 }
