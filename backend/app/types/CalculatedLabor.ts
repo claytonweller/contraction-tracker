@@ -6,8 +6,9 @@ export interface ICalculatedLabor {
     intensities: number[]
   }
   rest: {
-    current: number;
-    average: number;
+    currentDuration?: number;
+    averageDuration: number;
     durations: number[];
   }
+  isGoTime: boolean;
 }

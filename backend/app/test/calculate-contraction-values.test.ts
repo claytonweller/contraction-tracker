@@ -1,5 +1,5 @@
-import { calculateContractionValues } from "../app/utils/calculate-labor-values/calculate-contraction-values";
-import { defaultLabor } from "../app/utils/default-labor";
+import { calculateContractionValues } from "../utils/calculate-labor-values/calculate-contraction-values";
+import { defaultLabor } from "../utils/default-labor";
 
 describe('calculateContractionValues', () => {
   const result = calculateContractionValues(defaultLabor())
