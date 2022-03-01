@@ -1,25 +1,21 @@
+
 import { ILabor } from "../../types/Labor"
-import { ICalculatedLabor } from "../../types/CalculatedLabor"
 import { calculateContractionValues } from "./calculate-contraction-values"
+import { calculateRestValues } from "./calculate-rest-values"
+import { checkIsGoTime } from "./check-is-go-time"
 
 export function calculateLaborValues(labor: ILabor): ILabor {
   const contraction = calculateContractionValues(labor)
   const rest = calculateRestValues(labor)
+  const isGoTime = checkIsGoTime(labor, contraction, rest)
   return {
     ...labor,
     calculated: {
-      isGoTime: false,
       contraction,
-      rest
+      rest,
+      isGoTime, 
     }
   }
 }
 
 
-function calculateRestValues(labor: ILabor): ICalculatedLabor['rest'] {
-  return {
-    currentDuration: 1,
-    averageDuration: 1,
-    durations: [1]
-  }
-}
