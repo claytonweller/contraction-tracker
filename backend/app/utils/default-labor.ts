@@ -4,7 +4,7 @@ import { ILabor } from "../types/Labor";
 export const defaultLabor = (): ILabor => {
   const now = DateTime.now()
   return {
-    userId: 1,
+    userId: "1",
     startTime: now.minus({ minute: 30 }).toISO(),
     endTime: undefined,
     contractions: [

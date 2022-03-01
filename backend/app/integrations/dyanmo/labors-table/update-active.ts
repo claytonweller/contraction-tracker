@@ -3,11 +3,12 @@ import { IBaseDynamoParams } from "../index";
 import { getLabors } from "./get";
 
 export async function updateActiveLabor(
-  params: { updatedLabor: ILabor, userId: string },
+  params: { updatedLabor: ILabor },
   client: AWS.DynamoDB.DocumentClient,
   baseParams: IBaseDynamoParams
 ): Promise<ILabor> {
-  const { userId, updatedLabor } = params
+  const { updatedLabor } = params
+  const { userId } = updatedLabor 
   const existingLabors = await getLabors({ userId }, client, baseParams)
   if (!existingLabors.length) throw new Error(`No labors for user - ${userId}`)
 
