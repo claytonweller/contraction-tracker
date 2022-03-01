@@ -21,6 +21,7 @@ export const defaultLabor = (): ILabor => {
 
     ],
     calculated: {
+      isGoTime: false,
       contraction: {
         averageDuration: 6000,
         averageIntensity: 1,
@@ -28,8 +29,8 @@ export const defaultLabor = (): ILabor => {
         intensities: []
       },
       rest: {
-        current: 6000,
-        average: 6000,
+        currentDuration: 6000,
+        averageDuration: 6000,
         durations: [],
       }
     },

@@ -3,12 +3,8 @@ import type {Config} from '@jest/types';
 const config: Config.InitialOptions = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  rootDir:"test",
-  globals: {
-    "ts-jest": {
-        tsconfig: "./tsconfig.test.json"
-    }
-}
+  rootDir:"app/__test__",
+  setupFilesAfterEnv:['./test-setup.js']
 };
 
 export default config

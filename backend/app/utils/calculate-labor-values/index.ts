@@ -8,6 +8,7 @@ export function calculateLaborValues(labor: ILabor): ILabor {
   return {
     ...labor,
     calculated: {
+      isGoTime: false,
       contraction,
       rest
     }
@@ -17,8 +18,8 @@ export function calculateLaborValues(labor: ILabor): ILabor {
 
 function calculateRestValues(labor: ILabor): ICalculatedLabor['rest'] {
   return {
-    current: 1,
-    average: 1,
+    currentDuration: 1,
+    averageDuration: 1,
     durations: [1]
   }
 }

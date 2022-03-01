@@ -5,11 +5,11 @@ import { ILabor } from "../../types/Labor"
 import { calculateAverage } from "./calculate-average"
 import { extractDurations } from "./extract-durations"
 
-export function calculateContractionValues(labor: ILabor): ICalculatedLabor['rest'] {
+export function calculateRestValues(labor: ILabor): ICalculatedLabor['rest'] {
   const { contractions, startTime } = labor
 
   const rests = calculateRests(contractions, startTime)
-  const { lastHour: lastHourDurations, all: durations } = extractDurations(contractions)
+  const { lastHour: lastHourDurations, all: durations } = extractDurations(rests)
   const averageDuration = calculateAverage(lastHourDurations)
   const currentRest = rests.filter(rest => !rest.endTime)[0]
   const currentDuration = currentRest
