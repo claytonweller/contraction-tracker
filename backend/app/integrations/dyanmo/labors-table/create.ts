@@ -3,11 +3,12 @@ import { IBaseDynamoParams } from "../index";
 import { getLabors } from "./get";
 
 export async function createLabor(
-  params: { newLabor: ILabor, userId: string },
+  params: { newLabor: ILabor },
   client: AWS.DynamoDB.DocumentClient,
   baseParams: IBaseDynamoParams
 ): Promise<ILabor> {
-  const { newLabor, userId } = params
+  const { newLabor } = params
+  const {userId} = newLabor
   const labors = await getLabors({ userId }, client, baseParams)
   const Item = {
     userId,

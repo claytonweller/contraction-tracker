@@ -11,8 +11,8 @@ const baseParams: IBaseDynamoParams = {
 export function labor(client: AWS.DynamoDB.DocumentClient) {
   return {
     create: async (
-      newLabor: ILabor, userId: string
-    ): Promise<ILabor> => createLabor({ newLabor, userId }, client, baseParams),
+      newLabor: ILabor
+    ): Promise<ILabor> => createLabor({ newLabor }, client, baseParams),
     updateActive: async (
       updatedLabor: ILabor
     ): Promise<ILabor> => updateActiveLabor({ updatedLabor }, client, baseParams),
