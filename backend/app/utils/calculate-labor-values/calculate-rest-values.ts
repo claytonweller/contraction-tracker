@@ -33,7 +33,7 @@ function calculateRests(contractions:IContraction[], laborStartTime: string):IRe
     rests.push({startTime, endTime})
   }
   const finalContraction = contractions[contractions.length - 1]
-  if(finalContraction.endTime) rests.push({startTime: finalContraction.endTime})
+  if(finalContraction?.endTime) rests.push({startTime: finalContraction.endTime})
   return rests
 }
 
