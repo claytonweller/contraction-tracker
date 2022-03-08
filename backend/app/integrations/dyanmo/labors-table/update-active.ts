@@ -17,7 +17,7 @@ export async function updateActiveLabor(
   if (lastLabor?.endTime) throw new Error(`No active labors for user - ${userId}`)
 
   const Item = {
-    userId: "123",
+    userId,
     labors: [...labors, updatedLabor]
   };
   const laborInfo = { ...baseParams, Item };
