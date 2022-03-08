@@ -14,8 +14,8 @@ export default function App() {
   const defaultProps = {
     transitionToScreen: () => () => undefined,
     labor: defaultLabor(),
-    updateLabor: defaultLabor,
-    createLabor: defaultLabor
+    updateLabor: () => new Promise<ILabor>((resolve) => resolve(defaultLabor())),
+    createLabor: () => new Promise<ILabor>((resolve) => resolve(defaultLabor()))
   }
   const screenWithState = withState(displayedScreen, setScreen, laborState)(defaultProps)
 
@@ -35,12 +35,12 @@ function withState<T>(
 ) {
   const [labor, setLabor] = laborState
   const transitionToScreen = (screenName: string = 'home') => setScreen(screenName)
-  const updateLabor = (newLabor: ILabor) => {
-    const savedLabor = backend.updateLabor(newLabor)
+  const updateLabor = async (newLabor: ILabor) => {
+    const savedLabor = await backend.updateLabor(newLabor)
     setLabor(savedLabor)
   }
-  const createLabor = () => {
-    const createdLabor = backend.createLabor()
+  const createLabor = async (userId: string) => {
+    const createdLabor = await backend.createLabor(userId)
     setLabor(createdLabor)
   }
 
@@ -56,6 +56,6 @@ function withState<T>(
 export interface IStateProps {
   transitionToScreen: (screenName?: string) => void,
   labor: ILabor,
-  updateLabor: (labor: ILabor) => ILabor
-  createLabor: () => ILabor
+  updateLabor: (labor: ILabor) => Promise<ILabor>,
+  createLabor: (userId: string) => Promise<ILabor>
 }

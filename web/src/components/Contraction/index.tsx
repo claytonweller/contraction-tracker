@@ -4,10 +4,10 @@ import { DateTime } from 'luxon';
 import { modifyLastContraction } from '../../utils/updateLastContraction';
 
 export default function Contraction({ transitionToScreen, labor, updateLabor }: IStateProps) {
-  const handleClick = () => {
+  const handleClick = async () => {
     const endTime = DateTime.now().toISO()
     const updatedLabor = modifyLastContraction(labor, { endTime })
-    updateLabor(updatedLabor)
+    await updateLabor(updatedLabor)
     transitionToScreen('intensity')
   }
 

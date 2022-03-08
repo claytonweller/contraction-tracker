@@ -5,10 +5,10 @@ import { modifyLastContraction } from "../../utils/updateLastContraction"
 export default function IntensityButton(
   { updateLabor, transitionToScreen, labor, value }: IIntensityButtonProps
 ) {
-  const handleClick = (event: any) => {
-    const intensity = event?.target.value
+  const handleClick = async (event: any) => {
+    const intensity = parseFloat(event?.target.value)
     const updatedLabor = modifyLastContraction(labor, { intensity })
-    updateLabor(updatedLabor)
+    await updateLabor(updatedLabor)
     transitionToScreen('labor')
   }
   const key = `intensity-${value}`

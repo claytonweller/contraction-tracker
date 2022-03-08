@@ -6,7 +6,7 @@ import HomeButton from '../shared/HomeButton';
 
 export default function Labor(props: IStateProps) {
   const { transitionToScreen, labor, updateLabor } = props
-  const handleClick = () => {
+  const handleClick = async () => {
     const newContraction: IContraction = {
       startTime: DateTime.now().toISO()
     }
@@ -14,7 +14,7 @@ export default function Labor(props: IStateProps) {
       ...labor,
       contractions: [...labor.contractions, newContraction]
     }
-    updateLabor(updatedLabor)
+    await updateLabor(updatedLabor)
     transitionToScreen('contraction')
   }
 

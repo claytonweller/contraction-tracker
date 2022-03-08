@@ -1,23 +1,27 @@
 import { DateTime } from "luxon";
 import { ILabor } from "../../types/Labor";
 
-export const defaultLabor = (): ILabor => ({
-  userId: 1,
-  startTime: DateTime.now().toISO(),
-  endTime: undefined,
-  contractions: [],
-  calculated: {
-    contraction: {
-      averageDuration: 6000,
-      averageIntensity: 1,
-      durations: [],
-      intensities: []
+export const defaultLabor = (userId:string = "1"): ILabor => {
+  const startTime = DateTime.now().toISO()
+  return {
+    userId,
+    startTime,
+    endTime: undefined,
+    contractions: [],
+    calculated: {
+      isGoTime: false,
+      contraction: {
+        averageDuration: 0,
+        averageIntensity: 0,
+        durations: [],
+        intensities: []
+      },
+      rest: {
+        currentDuration: 0,
+        averageDuration: 0,
+        durations: [],
+      }
     },
-    rest: {
-      current: 6000,
-      average: 6000,
-      durations: [],
-    }
-  },
-  bishopScore: 0
-})
+    bishopScore: 0
+  }
+}

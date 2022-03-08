@@ -31,29 +31,30 @@ package:
   individually: true
 
 resources:
-    Resources:
-      laborsTable:
-        Type: AWS::DynamoDB::Table
-        Properties:
-          TableName: laborsTable
-          AttributeDefinitions:
-            - AttributeName: userId
-              AttributeType: S
-          KeySchema:
-            - AttributeName: userId
-              KeyType: HASH
-          ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1
+  Resources:
+    laborsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: laborsTable
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 
 functions:
   create-labor:
     handler: dist/handlers/labor/create.handler
     events:
       - http:
-          method: post          
+          method: post
           path: labor/create
           private: true
+          cors: true
     layers:
       - { Ref: ContractionTrackerDependenciesLambdaLayer }
     package:
@@ -69,9 +70,10 @@ functions:
     handler: dist/handlers/labor/update.handler
     events:
       - http:
-          method: post          
+          method: post
           path: labor/update
           private: true
+          cors: true
     layers:
       - { Ref: ContractionTrackerDependenciesLambdaLayer }
     package:
@@ -82,5 +84,3 @@ functions:
       exclude:
         - ./**
         - node_modules/**
-
- 

@@ -1,6 +1,12 @@
+import { IBackendRequest } from ".";
 import { ILabor } from "../../../types/Labor";
 
-export function updateLabor(integration: (message: string) => void, labor: ILabor): ILabor {
-  integration(`updateLabor --- ${JSON.stringify(labor)}`)
-  return labor
+export async function updateLabor(
+  makeRequest: IBackendRequest, labor:ILabor
+): Promise<ILabor> {
+  const updatedLabor = await makeRequest<ILabor>({
+    path:'/labor/update',
+    body: JSON.stringify(labor)
+  })
+  return updatedLabor
 }
