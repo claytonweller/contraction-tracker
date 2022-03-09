@@ -93,6 +93,10 @@ functions:
           path: labor/get
           private: true
           cors: true
+          request:
+            parameters:
+              querystrings:
+                userId: true
     layers:
       - { Ref: ContractionTrackerDependenciesLambdaLayer }
     package:

@@ -1,4 +1,4 @@
-import React, { useState, ComponentType, Dispatch, SetStateAction } from 'react';
+import React, { useState, ComponentType, Dispatch, SetStateAction, useEffect } from 'react';
 import './App.css';
 import { getDisplayedScreen } from './utils/get-displayed-screen'
 import { defaultLabor } from './utils/default-labor';
@@ -9,7 +9,15 @@ import { backend } from './integrations/back-end';
 export default function App() {
 
   const [screenName, setScreen] = useState('home');
+  const [needStartingLabor, setNeedStartingLabor] = useState(true)
   const laborState = useState(defaultLabor())
+  const setLabor = laborState[1]
+  useEffect(() => {
+    if (needStartingLabor) {
+      checkForActiveLabor('555', setLabor, setScreen)
+      setNeedStartingLabor(false)
+    }
+  }, [])
   const displayedScreen = getDisplayedScreen(screenName, laborState)
   const defaultProps = {
     transitionToScreen: () => () => undefined,
@@ -26,6 +34,19 @@ export default function App() {
       </header>
     </div>
   );
+}
+
+async function checkForActiveLabor(
+  userId: string,
+  setLabor: Dispatch<SetStateAction<ILabor>>,
+  setScreen: Dispatch<SetStateAction<string>>
+): Promise<void> {
+  const labors = await backend.getLabors(userId)
+  const latestLabor = labors[labors.length - 1]
+  const latestIsActive = !latestLabor.endTime
+  const startingLabor = latestIsActive ? latestLabor : defaultLabor()
+  setLabor(startingLabor)
+  if (latestIsActive) setScreen('labor')
 }
 
 function withState<T>(
