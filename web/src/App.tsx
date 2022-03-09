@@ -9,9 +9,10 @@ import { backend } from './integrations/back-end';
 export default function App() {
 
   const [screenName, setScreen] = useState('home');
-  const [needStartingLabor, setNeedStartingLabor] = useState(true)
   const laborState = useState(defaultLabor())
   const setLabor = laborState[1]
+  const [needStartingLabor, setNeedStartingLabor] = useState(true)
+
   useEffect(() => {
     if (needStartingLabor) {
       checkForActiveLabor('555', setLabor, setScreen)
