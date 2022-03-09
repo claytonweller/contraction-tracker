@@ -84,3 +84,22 @@ functions:
       exclude:
         - ./**
         - node_modules/**
+
+  get-labors:
+    handler: dist/handlers/labor/get.handler
+    events:
+      - http:
+          method: get
+          path: labor/get
+          private: true
+          cors: true
+    layers:
+      - { Ref: ContractionTrackerDependenciesLambdaLayer }
+    package:
+      include:
+        - dist/handlers/labor/get.js
+        - dist/integrations/**
+        - dist/utils/**
+      exclude:
+        - ./**
+        - node_modules/**
