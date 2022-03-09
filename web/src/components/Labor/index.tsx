@@ -36,7 +36,7 @@ export default function Labor(props: IStateProps) {
   }, 1000)
 
   const roundDuration = (seconds: number) => {
-    return Duration.fromMillis(seconds * 10000).toFormat('mm:ss')
+    return Duration.fromMillis(seconds * 1000).toFormat('mm:ss')
   }
 
   return (
