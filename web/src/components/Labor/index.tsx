@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { IContraction } from '../../../types/Contraction';
 import { DateTime, Duration } from 'luxon';
-import { IStateProps } from '../../App';
 import HomeButton from '../shared/HomeButton';
+import { IStateProps } from '../../utils/with-state';
 
 export default function Labor(props: IStateProps) {
 

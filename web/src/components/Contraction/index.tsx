@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { IStateProps } from '../../App';
 import { DateTime } from 'luxon';
 import { modifyLastContraction } from '../../utils/updateLastContraction';
+import { IStateProps } from '../../utils/with-state';
 
 export default function Contraction({ transitionToScreen, labor, updateLabor }: IStateProps) {
   const [timerValue, setTimerValue] = useState(0);

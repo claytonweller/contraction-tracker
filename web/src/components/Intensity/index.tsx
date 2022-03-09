@@ -1,5 +1,5 @@
 import React from 'react';
-import { IStateProps } from '../../App';
+import { IStateProps } from '../../utils/with-state';
 import IntensityButton from './IntensityButton';
 
 export default function Intesnity(props: IStateProps) {

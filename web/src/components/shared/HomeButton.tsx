@@ -1,7 +1,7 @@
-import { IStateProps } from "../../App";
 import React from 'react';
 import { ILabor } from "../../../types/Labor";
 import { DateTime } from "luxon";
+import { IStateProps } from '../../utils/with-state';
 
 export default function HomeButton({ transitionToScreen, labor, updateLabor }: IStateProps) {
   const handleClick = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IStateProps } from '../../App';
+import { IStateProps } from '../../utils/with-state';
 
 export default function Home({ transitionToScreen, createLabor }: IStateProps) {
   const handleClick = async () => {

@@ -1,7 +1,6 @@
 import React from 'react';
-import { IStateProps } from '../../App';
 import HomeButton from '../shared/HomeButton';
-import { DateTime } from 'luxon';
+import { IStateProps } from '../../utils/with-state';
 
 export default function GoTime(props: IStateProps) {
   return (

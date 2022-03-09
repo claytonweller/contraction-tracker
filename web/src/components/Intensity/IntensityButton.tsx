@@ -1,6 +1,6 @@
 import React from 'react';
-import { IStateProps } from "../../App"
 import { modifyLastContraction } from "../../utils/updateLastContraction"
+import { IStateProps } from '../../utils/with-state';
 
 export default function IntensityButton(
   { updateLabor, transitionToScreen, labor, value }: IIntensityButtonProps
