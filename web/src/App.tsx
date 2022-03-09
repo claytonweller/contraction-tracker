@@ -47,7 +47,16 @@ async function checkForActiveLabor(
   const latestIsActive = !latestLabor.endTime
   const startingLabor = latestIsActive ? latestLabor : defaultLabor()
   setLabor(startingLabor)
-  if (latestIsActive) setScreen('labor')
+  if (latestIsActive) resumeLabor(setScreen, latestLabor)
+}
+
+function resumeLabor(setScreen: Dispatch<SetStateAction<string>>, labor: ILabor) {
+  const latestContraction = labor.contractions[labor.contractions.length - 1]
+  const contractionInProgress = !latestContraction.endTime
+  const contractionNeedsIntensity = !latestContraction.intensity
+  if (contractionInProgress) return setScreen('contraction')
+  if (contractionNeedsIntensity) return setScreen('intensity')
+  return setScreen('labor')
 }
 
 function withState<T>(
