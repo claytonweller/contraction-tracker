@@ -10,7 +10,7 @@ export default function App() {
 
   const [screenName, setScreen] = useState('home');
   const laborState = useState(defaultLabor())
-  const displayedScreen = getDisplayedScreen(screenName)
+  const displayedScreen = getDisplayedScreen(screenName, laborState)
   const defaultProps = {
     transitionToScreen: () => () => undefined,
     labor: defaultLabor(),
