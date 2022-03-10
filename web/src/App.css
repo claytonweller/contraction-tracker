@@ -16,3 +16,21 @@
 .App-link {
   color: #61dafb;
 }
+
+button {
+  background-color: #cc170e;
+  width: 100%;
+  color: white;
+  font-family: "Oswald", sans-serif;
+  font-size: 34px;
+  padding: 10px;
+  border: 1px solid rgb(95, 25, 25);
+  border-radius: 5px;
+  transition-duration: 100ms;
+}
+
+.home-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

@@ -12,5 +12,9 @@ export default function HomeButton({ transitionToScreen, labor, updateLabor }: I
     updateLabor(endedLabor)
     transitionToScreen('home')
   }
-  return <button onClick={handleClick}>Home</button>
+  return (
+    <div className={"home-button"}>
+      <button onClick={handleClick}>X</button>
+    </div>
+  )
 }
