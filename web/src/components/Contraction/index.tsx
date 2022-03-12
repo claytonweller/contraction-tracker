@@ -26,7 +26,7 @@ export default function Contraction({ transitionToScreen, labor, updateLabor }: 
   return (
     <div>
       <h3>Contraction</h3>
-      <h2><b>{timerValue}</b> sec</h2>
+      <h2 style={{ fontSize: '20vw' }}>{timerValue}</h2>
       <button onClick={handleClick}>Release</button>
     </div >
   );
