@@ -1,14 +1,14 @@
 export interface ICalculatedLabor {
   contraction: {
-    averageDuration: number;
+    averageDuration: number; // Seconds
     averageIntensity: number;
-    durations: number[]
+    durations: number[] // Seconds
     intensities: number[]
   }
   rest: {
-    currentDuration?: number;
-    averageDuration: number;
-    durations: number[];
+    currentDuration?: number; // seconds
+    averageDuration: number; // seconds
+    durations: number[]; // seconds
   }
   isGoTime: boolean;
 }

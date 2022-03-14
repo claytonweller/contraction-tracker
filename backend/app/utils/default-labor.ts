@@ -1,13 +1,15 @@
 import { DateTime } from "luxon";
+import { IContraction } from "../types/Contraction";
 import { ILabor } from "../types/Labor";
 
-export const defaultLabor = (): ILabor => {
+export const defaultLabor = (params:{
+  totalMinutesOfLabor?: number,
+  contractions?: IContraction[],
+}={}): ILabor => {
   const now = DateTime.now()
-  return {
-    userId: "1",
-    startTime: now.minus({ minute: 30 }).toISO(),
-    endTime: undefined,
-    contractions: [
+  const {
+    totalMinutesOfLabor = 30,
+    contractions = [
       {
         startTime: now.minus({ minute: 25 }).toISO(),
         endTime: now.minus({ minute: 24 }).toISO(),
@@ -19,7 +21,14 @@ export const defaultLabor = (): ILabor => {
         intensity: 2
       }
 
-    ],
+    ]
+  } = params
+  
+  return {
+    userId: "1",
+    startTime: now.minus({ minute: totalMinutesOfLabor }).toISO(),
+    endTime: undefined,
+    contractions,
     calculated: {
       isGoTime: false,
       contraction: {
