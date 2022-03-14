@@ -13,8 +13,7 @@ export function extractDurations(spans: (IContraction | IRest)[]) {
   }, { lastHour: [], all: [] })
 }
 
-function calculateDuration(startTime: string, endTime?: string): number {
-  if (!endTime) return 0
+function calculateDuration(startTime: string, endTime: string): number {
   const start = DateTime.fromISO(startTime)
   const end = DateTime.fromISO(endTime)
   return end.diff(start, 'seconds').seconds

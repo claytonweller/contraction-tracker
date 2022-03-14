@@ -1,8 +1,6 @@
 import { calculateLaborValues } from "../../../utils/calculate-labor-values";
 import { defaultLabor } from "../../../utils/default-labor";
 
-calculateLaborValues
-
 describe('calculateLaborValues', ()=>{
   const labor = calculateLaborValues(defaultLabor())
   it('correctly calculates values', ()=>{
