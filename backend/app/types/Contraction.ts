@@ -1,9 +1,4 @@
-import {z} from 'zod'
-
-export const contractionSchema = z.object({
-  startTime: z.string(),
-  endTime: z.string().optional(),
-  intensity: z.number().optional()
-})
+import * as z from 'zod'
+import { contractionSchema } from '../handlers/labor/schemas'
 
 export type IContraction = z.infer<typeof contractionSchema>

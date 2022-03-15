@@ -60,9 +60,9 @@ functions:
     package:
       include:
         - dist/handlers/labor/create.js
+        - dist/handlers/labor/schemas.js
         - dist/integrations/**
         - dist/utils/**
-        - dist/types/**
       exclude:
         - ./**
         - node_modules/**
@@ -80,9 +80,9 @@ functions:
     package:
       include:
         - dist/handlers/labor/update.js
+        - dist/handlers/labor/schemas.js
         - dist/integrations/**
         - dist/utils/**
-        - dist/types/**
       exclude:
         - ./**
         - node_modules/**
@@ -106,7 +106,6 @@ functions:
         - dist/handlers/labor/get.js
         - dist/integrations/**
         - dist/utils/**
-        - dist/types/**
       exclude:
         - ./**
         - node_modules/**
