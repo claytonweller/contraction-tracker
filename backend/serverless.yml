@@ -62,6 +62,7 @@ functions:
         - dist/handlers/labor/create.js
         - dist/integrations/**
         - dist/utils/**
+        - dist/types/**
       exclude:
         - ./**
         - node_modules/**
@@ -81,6 +82,7 @@ functions:
         - dist/handlers/labor/update.js
         - dist/integrations/**
         - dist/utils/**
+        - dist/types/**
       exclude:
         - ./**
         - node_modules/**
@@ -104,6 +106,7 @@ functions:
         - dist/handlers/labor/get.js
         - dist/integrations/**
         - dist/utils/**
+        - dist/types/**
       exclude:
         - ./**
         - node_modules/**
