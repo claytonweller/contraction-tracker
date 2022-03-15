@@ -3,7 +3,7 @@ import { defaultLabor } from "../../../utils/default-labor";
 
 describe('calculateLaborValues', ()=>{
   const labor = calculateLaborValues(defaultLabor())
-  it('correctly calculates values', ()=>{
+  it('correctly formats the calculated values', ()=>{
     expect(labor).toEqual({
       ...labor,
       calculated:{

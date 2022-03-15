@@ -2,8 +2,8 @@ import { calculateContractionValues } from "../../../utils/calculate-labor-value
 import { defaultLabor } from "../../../utils/default-labor";
 
 describe('calculateContractionValues', () => {
-  const result = calculateContractionValues(defaultLabor())
-  it('should correctly calculate the values', () => {
+  it('should correctly format the calculated Values', () => {
+    const result = calculateContractionValues(defaultLabor())
     expect(result).toEqual({
          "averageDuration": 90,
          "averageIntensity": 1.5,
