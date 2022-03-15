@@ -10,6 +10,7 @@ export async function createLabor(
   const { newLabor } = params
   const {userId} = newLabor
   const labors = await getLabors({ userId }, client, baseParams)
+  console.warn(labors)
   const Item = {
     userId,
     labors: [...labors, newLabor]

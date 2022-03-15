@@ -16,7 +16,9 @@ export function labor(client: AWS.DynamoDB.DocumentClient) {
     updateActive: async (
       updatedLabor: ILabor
     ): Promise<ILabor> => updateActiveLabor({ updatedLabor }, client, baseParams),
-    get: async (userId: string): Promise<ILabor[]> => getLabors({ userId }, client, baseParams)
+    get: async (
+      userId: string
+    ): Promise<ILabor[]> => getLabors({ userId }, client, baseParams)
   }
 }
 
