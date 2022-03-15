@@ -5,6 +5,7 @@ export function withErrorHandling(handler: (any)=>Promise<any>){
   }
   
   return async (event) => {
+    console.log(event)
     try {
       const result = await handler(event)
       return {
