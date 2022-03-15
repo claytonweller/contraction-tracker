@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`updateLaborHandler when the body is incorrectly formatted should throw an error 1`] = `
+[ZodError: [
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [],
+    "message": "Required"
+  }
+]]
+`;
