@@ -1,9 +1,9 @@
 import { dynamo } from "../../integrations/dyanmo"
 import { calculateLaborValues } from "../../utils/calculate-labor-values"
 import { withErrorHandling } from "../../utils/with-error-handling"
-import {laborSchema} from '../../types/Labor'
+import { laborSchema } from "./schemas"
 
-async function updateHandler(event) {
+export async function updateHandler(event) {
   const labor = JSON.parse(event.body)
   const validLabor = laborSchema.parse(labor)
   const laborWithCalculations = calculateLaborValues(validLabor)
