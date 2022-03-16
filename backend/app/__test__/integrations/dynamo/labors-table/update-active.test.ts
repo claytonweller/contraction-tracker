@@ -1,6 +1,6 @@
 import { updateActiveLabor } from "../../../../integrations/dyanmo/labors-table/update-active"
 import { defaultLabor } from "../../../../utils/default-labor"
-import { createMockClient } from "./mockClient";
+import { createMockClient } from "../mockClient";
 
 describe('updateActiveLabor', ()=>{
   const baseParams = {TableName: 'value'}

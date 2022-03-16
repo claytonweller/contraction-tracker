@@ -1,5 +1,5 @@
-import { ILabor } from "../../../../types/Labor"
-import { defaultLabor } from "../../../../utils/default-labor"
+import { ILabor } from "../../../types/Labor"
+import { defaultLabor } from "../../../utils/default-labor"
 
 export const fakeAWSPromise = (output)=>{
   return {promise:() => new Promise(resolve => resolve(output))}

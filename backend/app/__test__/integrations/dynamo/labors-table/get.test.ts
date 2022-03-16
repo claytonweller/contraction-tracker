@@ -1,6 +1,6 @@
 import { getLabors } from "../../../../integrations/dyanmo/labors-table/get"
 import { defaultLabor } from "../../../../utils/default-labor"
-import { createMockClient, fakeAWSPromise } from "./mockClient";
+import { createMockClient, fakeAWSPromise } from "../mockClient";
 
 describe('getLabors', ()=>{
 

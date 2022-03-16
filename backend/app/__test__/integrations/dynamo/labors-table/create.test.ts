@@ -1,6 +1,6 @@
 import { createLabor } from "../../../../integrations/dyanmo/labors-table/create"
 import { defaultLabor } from "../../../../utils/default-labor"
-import { createMockClient } from "./mockClient";
+import { createMockClient } from "../mockClient";
 
 describe('createLabor', ()=>{
   const existingLabors = [defaultLabor()]
