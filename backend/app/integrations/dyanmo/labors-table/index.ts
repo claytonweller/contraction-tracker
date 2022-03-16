@@ -8,7 +8,7 @@ const baseParams: IBaseDynamoParams = {
   TableName: 'laborsTable'
 }
 
-export function labor(client: AWS.DynamoDB.DocumentClient) {
+export function connectToLaborTable(client: AWS.DynamoDB.DocumentClient) {
   return {
     create: async (
       newLabor: ILabor

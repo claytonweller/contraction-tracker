@@ -1,8 +1,8 @@
-import { labor } from "../../../../integrations/dyanmo/labors-table"
+import { connectToLaborTable } from "../../../../integrations/dyanmo/labors-table"
 
-describe('laborTable', ()=>{
+describe('connectToLaborTable', ()=>{
   const mockClient = {} as unknown as AWS.DynamoDB.DocumentClient
-  const laborTable = labor(mockClient)
+  const laborTable = connectToLaborTable(mockClient)
   const expectedOperations = ['create', 'updateActive', 'get']
   const operationNames = Object.keys(laborTable)
   expectedOperations.forEach((operationName) =>{
