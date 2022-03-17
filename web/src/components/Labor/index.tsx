@@ -29,6 +29,7 @@ export default function Labor(props: IStateProps) {
   return (
     <div>
       <HomeButton {...props} />
+      <OopsButton {...props} />
       <h1>Labor</h1>
       <div>
         <h2>Stats</h2>
@@ -43,15 +44,10 @@ export default function Labor(props: IStateProps) {
           <div>Ave duration: {roundDuration(laborDuration)}</div>
           <div>Current duration: <DurationTimer start={currentStart} /></div>
         </div>
-
       </div>
-      <h2>Buttons</h2>
-      <div>
-        <OopsButton {...props} />
+      <div style={{ paddingTop: '20px' }}>
         <ContractionButton {...props} />
       </div>
-      <div>TEMP</div>
-      <button onClick={() => transitionToScreen('go-time')}>GO TIME!</button>
     </div >
   );
 }

@@ -17,7 +17,10 @@ export default function OopsButton(props: IStateProps) {
   }
 
   return (
-    <button onClick={handleClick}>Oops</button>
+    <button
+      onClick={handleClick}
+      style={{ position: 'absolute', top: 0, right: 0, width: '50px', backgroundColor: '#559955' }}
+    >!</button>
   );
 }
 
