@@ -15,8 +15,9 @@ export default function App() {
   const backgroundStyle = { backgroundColor: background.color, transitionDuration: background.speed }
 
   useEffect(() => {
+    const userId = localStorage.getItem('userId') || '111'
     if (needStartingLabor) {
-      checkForActiveLabor('555', setLabor, setScreen)
+      checkForActiveLabor(userId, setLabor, setScreen)
       setNeedStartingLabor(false)
     }
   }, [])

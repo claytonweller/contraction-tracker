@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { IStateProps } from '../../utils/with-state';
 
-export default function Home({ transitionToScreen, createLabor, changeBackground }: IStateProps) {
-  const [userId, setUserId] = useState('111')
+export default function Home({ transitionToScreen, createLabor }: IStateProps) {
+  const lastUserId = localStorage.getItem('userId') || '111'
+  const [userId, setUserId] = useState(lastUserId)
 
   const handleClick = async () => {
+    localStorage.setItem('userId', userId)
     await createLabor(userId)
     transitionToScreen('labor')
   }
