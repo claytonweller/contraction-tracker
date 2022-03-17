@@ -14,6 +14,9 @@ export default function Contraction({ transitionToScreen, labor, updateLabor }: 
     await updateLabor(updatedLabor)
     transitionToScreen('intensity')
   }
+
+  // setTimeout(() => { })
+
   setTimeout(() => {
     const now = DateTime.now()
     const diff = now.diff(DateTime.fromISO(currentContraction.startTime)).milliseconds

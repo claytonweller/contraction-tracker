@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { getDisplayedScreen } from './utils/get-displayed-screen'
 import { defaultLabor } from './utils/default-labor';
-import { ILabor } from '../types/Labor';
 import { checkForActiveLabor } from './utils/check-for-active-labor';
-import { withState } from './utils/with-state';
+import { defaultStateProps, withState } from './utils/with-state';
 
 export default function App() {
 
@@ -12,6 +11,8 @@ export default function App() {
   const laborState = useState(defaultLabor())
   const setLabor = laborState[1]
   const [needStartingLabor, setNeedStartingLabor] = useState(true)
+  const [background, setBackground] = useState({ color: '#282c34', speed: '1000ms' })
+  const backgroundStyle = { backgroundColor: background.color, transitionDuration: background.speed }
 
   useEffect(() => {
     if (needStartingLabor) {
@@ -20,17 +21,11 @@ export default function App() {
     }
   }, [])
   const displayedScreen = getDisplayedScreen(screenName, laborState)
-  const defaultProps = {
-    transitionToScreen: () => () => undefined,
-    labor: defaultLabor(),
-    updateLabor: () => new Promise<ILabor>((resolve) => resolve(defaultLabor())),
-    createLabor: () => new Promise<ILabor>((resolve) => resolve(defaultLabor()))
-  }
-  const screenWithState = withState(displayedScreen, setScreen, laborState)(defaultProps)
+  const screenWithState = withState(displayedScreen, setScreen, laborState, setBackground)(defaultStateProps)
 
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App-header" style={backgroundStyle}>
         {screenWithState}
       </header>
     </div>

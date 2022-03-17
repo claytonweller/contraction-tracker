@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IStateProps } from '../../utils/with-state';
 
-export default function Home({ transitionToScreen, createLabor }: IStateProps) {
+export default function Home({ transitionToScreen, createLabor, changeBackground }: IStateProps) {
   const [userId, setUserId] = useState('111')
 
   const handleClick = async () => {

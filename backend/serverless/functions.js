@@ -23,7 +23,6 @@ function makeLambdaFunction(table, operation, method, querystrings) {
   }
 }
 
-
 function makeLambdaEvent(method, table, operation, querystrings) {
   const path = `${table}/${operation}`
   if (method === 'get') return makeGetLambdaEvent(path, querystrings)
@@ -62,6 +61,9 @@ module.exports = {
   functions: {
     ...makeLambdaFunction('labor', 'create', 'post'),
     ...makeLambdaFunction('labor', 'update', 'post'),
-    ...makeLambdaFunction('labor', 'get', 'get', { userId: true })
+    ...makeLambdaFunction('labor', 'get', 'get', { userId: true }),
+    ...makeLambdaFunction('user', 'create', 'post'),
+    ...makeLambdaFunction('user', 'update', 'post'),
+    ...makeLambdaFunction('user', 'get', 'get', { userId: true })
   }
 }
