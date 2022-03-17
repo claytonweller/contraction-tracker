@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { DateTime } from 'luxon';
 
 export default function DurationTimer(props: {
@@ -9,12 +9,16 @@ export default function DurationTimer(props: {
 }) {
   const { start, format = 'mm:ss', updateMilli = 1000 } = props
   const [timerValue, setTimerValue] = useState(format);
-  const now = DateTime.now()
-  const duration = now.diff(DateTime.fromISO(start)).toFormat(format)
 
-  setTimeout(() => {
-    setTimerValue(duration)
-  }, updateMilli)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const now = DateTime.now()
+      const duration = now.diff(DateTime.fromISO(start)).toFormat(format)
+      setTimerValue(duration)
+    }, updateMilli)
+    return () => clearTimeout(timer)
+  }, [timerValue])
+
 
   return (
     <span>{timerValue}</span>
