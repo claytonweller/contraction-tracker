@@ -1,5 +1,5 @@
-import React from 'react';
-import { DateTime, Duration } from 'luxon';
+import React, { useEffect } from 'react';
+import { Duration } from 'luxon';
 import HomeButton from '../shared/HomeButton';
 import { IStateProps } from '../../utils/with-state';
 import ContractionButton from './ContractionButton';
@@ -9,9 +9,12 @@ import OopsButton from './OopsButton';
 export default function Labor(props: IStateProps) {
 
   const {
+    changeBackground,
     transitionToScreen,
     labor: { startTime, calculated: { contraction, rest }, contractions }
   } = props
+
+  useEffect(() => changeBackground('#282c34', 2000), [])
 
   const { averageIntensity, averageDuration: contrationDuration } = contraction
   const { averageDuration: laborDuration } = rest

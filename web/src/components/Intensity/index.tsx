@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IStateProps } from '../../utils/with-state';
 import IntensityButton from './IntensityButton';
 
 export default function Intesnity(props: IStateProps) {
+  const { changeBackground } = props
+  useEffect(() => changeBackground('#282c34', 2000), [])
+
   return (
     <div>
-      <div>Intesnity</div>
+      <h2>Intesnity</h2>
       <IntensityButton {...props} value={1} />
       <IntensityButton {...props} value={2} />
       <IntensityButton {...props} value={3} />
