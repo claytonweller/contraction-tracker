@@ -5,9 +5,10 @@ import { DateTime } from 'luxon';
 export default function DurationTimer(props: {
   start: string,
   format?: string,
-  updateMilli?: number
+  updateMilli?: number,
+  className?: string
 }) {
-  const { start, format = 'mm:ss', updateMilli = 1000 } = props
+  const { start, format = 'mm:ss', updateMilli = 1000, className } = props
   const [timerValue, setTimerValue] = useState(format);
 
   useEffect(() => {
@@ -21,6 +22,6 @@ export default function DurationTimer(props: {
 
 
   return (
-    <span>{timerValue}</span>
+    <div className={className}>{timerValue}</div>
   );
 }

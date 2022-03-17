@@ -18,6 +18,32 @@
   color: #61dafb;
 }
 
+.Stat-block-chunk-header {
+  margin-bottom: 5px
+}
+
+.Stat-block-chunk {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.Stat-block-value {
+  font-weight: bolder;
+  font-size: calc(10px + 3vmin)
+}
+
+.Stat-block {
+  padding: 10px
+}
+
+h4 {
+  padding: 0px;
+  margin: 0px;
+  color: #999999;
+}
+
 button {
   background-color: #cc170e;
   width: 100%;
