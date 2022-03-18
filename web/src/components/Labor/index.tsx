@@ -22,7 +22,7 @@ export default function Labor(props: IStateProps) {
     <div>
       <HomeButton {...props} />
       <OopsButton {...props} />
-      <Graphs />
+      <Graphs {...props} />
       <h1 style={{ marginBlockStart: '5px' }}>Labor</h1>
       <div>
         <StatBlock title='Total Duration' durationStart={startTime} durationFormat={'hh:mm:ss'} />

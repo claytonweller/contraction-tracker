@@ -38,6 +38,14 @@
   padding: 10px
 }
 
+.rest-duration-line {
+  stroke: #cccccc;
+}
+
+.target-line {
+  stroke: #99170e;
+}
+
 path {
   fill: none;
   stroke: white;

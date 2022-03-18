@@ -4,6 +4,7 @@ export interface ICalculatedLabor {
     averageIntensity: number;
     durations: number[]
     intensities: number[]
+    averageDurations: number[]
   }
   rest: {
     currentDuration?: number;

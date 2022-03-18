@@ -1,25 +1,51 @@
 import * as d3 from "d3";
 import React, { useEffect } from 'react'
+import { ILabor } from "../../../types/Labor";
+import { IStateProps } from "../../utils/with-state";
 
-const plotGraph = () => {
-  const dataset1 = [
-    [1, 1], [12, 20], [24, 36],
-    [32, 50], [40, 70], [50, 100],
-    [55, 106], [65, 123], [73, 130],
-    [78, 134], [83, 136], [89, 138],
-    [100, 140]
-  ] as [number, number][]
+export default function Graphs({ labor }: IStateProps) {
+  useEffect(() => {
+    plotGraph(labor)
+    return () => { (d3.selectAll('.svg-content').remove()) }
+  })
+  return (
+    <div id="container" className="svg-container" />
+  )
+}
 
-  // const dataset2 = dataset1.map((d) => [(d[0] * d[0]) * .04, (d[1] + 30) * .85]) as [number, number][]
-
-  const masterSet = [dataset1]
+const plotGraph = (labor: ILabor) => {
+  const { calculated: { contraction } } = labor
+  const durationData = contraction.durations.map((dur, i) => {
+    return [i, dur] as [number, number]
+  })
+  // const averageDurationData = contraction.averageDurations!.map((dur, i) => {
+  //   return [i, dur] as [number, number]
+  // })
+  const tragetData = contraction.durations.map((dur, i) => [i, 60] as [number, number])
+  const domain = calculateDomain(durationData)
   const width = window.innerWidth - 120;
   const height = 50;
+  const graph = createGraph(width, height)
+  const line = createLine(width, height, domain)
+  addLineToGraph(graph, durationData, line, 'rest-duration-line')
+  addLineToGraph(graph, tragetData, line, 'target-line')
+}
+
+function calculateDomain(durationData: [number, number][]) {
+  return durationData.reduce((max, coord): { x: number, y: number } => {
+    const x = coord[0] > max.x ? coord[0] : max.x
+    const propposedYMax = coord[1] > max.y ? coord[1] : max.y
+    const y = Math.max(propposedYMax, 65)
+    return { x, y }
+  }, { x: 1, y: 1 })
+}
+
+function createGraph(width: number, height: number) {
   const margin = 5;
   const padding = 5;
   const adj = 0;
 
-  const svg = d3.select('div#container')
+  return d3.select('div#container')
     .append('svg')
     .attr('preserveAspectRatio', "xMinYMin meet")
     .attr("viewBox", "-"
@@ -32,46 +58,31 @@ const plotGraph = () => {
     .style("height", '15vh')
     .style("width", width)
     .classed("svg-content", true);
-
-  const xScale = d3.scaleLinear()
-    .range([0, width])
-    .domain([0, 101])
-  const yScale = d3.scaleLinear()
-    .rangeRound([height, 0])
-    .domain([0, 140])
-
-  // const yaxis = d3.axisLeft(yScale);
-  const xaxis = d3.axisBottom(xScale);
-
-  svg.append("g")
-    .attr("class", "axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xaxis);
-
-  // svg.append("g")
-  //   .attr("class", "axis")
-  //   .call(yaxis);
-
-  const line = d3.line()
-    .x((d) => xScale(d[0]))
-    .y((d) => yScale(d[1]))
-
-  const lines = svg.selectAll("lines")
-    .data(masterSet)
-    .enter()
-    .append("g");
-
-  lines.append('path')
-    .attr('d', (d) => line(d))
 }
 
-export default function Graphs() {
+function createLine(width: number, height: number, domain: { x: number, y: number }) {
+  const xScale = d3.scaleLinear()
+    .range([0, width])
+    .domain([0, domain.x])
 
-  useEffect(() => {
-    plotGraph()
-    return () => { (d3.selectAll('.svg-content').remove()) }
-  })
-  return (
-    <div id="container" className="svg-container" />
-  )
+  const yScale = d3.scaleLinear()
+    .rangeRound([height, 0])
+    .domain([0, domain.y])
+
+  return d3.line()
+    .x((d) => xScale(d[0]))
+    .y((d) => yScale(d[1]))
+}
+
+function addLineToGraph(
+  graph: d3.Selection<SVGSVGElement, unknown, HTMLElement, any>,
+  data: [number, number][],
+  line: d3.Line<[number, number]>,
+  className: string
+) {
+  graph.append('g')
+    .data([data])
+    .append('path')
+    .attr('d', d => line(d))
+    .attr('class', className)
 }
