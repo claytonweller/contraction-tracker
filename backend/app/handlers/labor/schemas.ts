@@ -21,7 +21,10 @@ export const calculatedLaborSchema = z.object({
     averageDuration: z.number(),
     durations: numberArray,
   }),
-  isGoTime: z.boolean()
+  isGoTime: z.boolean(),
+  contractionsAreLongEnough: z.boolean(), 
+  restsAreShortEnough: z.boolean(), 
+  laborIsLongEnough: z.boolean()
 })
 
 export const laborSchema = z.object({

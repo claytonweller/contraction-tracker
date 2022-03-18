@@ -10,6 +10,9 @@ export const defaultLabor = (userId:string = "1"): ILabor => {
     contractions: [],
     calculated: {
       isGoTime: false,
+      contractionsAreLongEnough: false, 
+      restsAreShortEnough: false, 
+      laborIsLongEnough: false,
       contraction: {
         averageDuration: 0,
         averageIntensity: 0,

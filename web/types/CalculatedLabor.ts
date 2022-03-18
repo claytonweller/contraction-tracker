@@ -12,4 +12,7 @@ export interface ICalculatedLabor {
     durations: number[];
   }
   isGoTime: boolean;
+  contractionsAreLongEnough: boolean, 
+  restsAreShortEnough: boolean, 
+  laborIsLongEnough: boolean
 }

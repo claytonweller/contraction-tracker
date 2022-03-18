@@ -1,8 +1,8 @@
 import { DateTime } from "luxon";
-import { checkIsGoTime } from "../../../utils/calculate-labor-values/check-is-go-time";
+import { checkGoTimeValues } from "../../../utils/calculate-labor-values/check-go-time-values";
 import { defaultLabor } from "../../../utils/default-labor";
 
-describe('checkIsGoTime', ()=>{
+describe('checkGoTimeValues', ()=>{
   const baseContractionCalculations = {
     averageDuration: 1,
     averageIntensity: 1,
@@ -12,9 +12,10 @@ describe('checkIsGoTime', ()=>{
   }
 
   const baseRestClaculations = {
-    averageDuration: 1,
-    durations: [1],
+    averageDuration: 200,
+    durations: [200],
   }
+
   describe('when the contractions are long enough', ()=>{
     const longContractions = {
       ...baseContractionCalculations,
@@ -34,28 +35,47 @@ describe('checkIsGoTime', ()=>{
           endTime: DateTime.now().toISO()
         }]
         const longLabor = defaultLabor({totalMinutesOfLabor, contractions})
-        it('should return true', ()=>{
-          expect(checkIsGoTime(longLabor, longContractions, shortRests)).toBe(true)
+        const result = checkGoTimeValues(longLabor, longContractions, shortRests)
+
+        it('should be go-time', ()=>{
+          expect(result.isGoTime).toBe(true)
+        })
+
+        Object.entries(result).forEach(([key, value]) =>{
+          it(`should have true for ${key}`, ()=> expect(value).toBe(true))
         })
       })
 
       describe('and the labor is NOT long enough', ()=>{
-        it('should return false', ()=>{
-          expect(checkIsGoTime(defaultLabor(), longContractions, shortRests))
+        const result = checkGoTimeValues(defaultLabor(), longContractions, shortRests)
+        it('should not be go-time', ()=>{
+          expect(result.isGoTime).toBe(false)
+        })
+        it('should note that the labor is NOT long enough', ()=>{
+          expect(result.laborIsLongEnough).toBe(false)
         })
       })
     })
 
     describe('and the rests are NOT short enough', ()=>{
-      it('should return false', ()=>{
-        expect(checkIsGoTime(defaultLabor(), longContractions, baseRestClaculations))
+      const result = checkGoTimeValues(defaultLabor(), longContractions, baseRestClaculations)
+      it('should not be go-time', ()=>{
+        expect(result.isGoTime).toBe(false)
+      })
+
+      it('should note that the rests are NOT short enough', ()=>{
+        expect(result.restsAreShortEnough).toBe(false)
       })
     })
   })
 
-  describe('when the contraction are NOT long enough', ()=>{
-    it('should return false', ()=>{
-      expect(checkIsGoTime(defaultLabor(), baseContractionCalculations, baseRestClaculations))
+  describe('when the contractions are NOT long enough', ()=>{
+    const result = checkGoTimeValues(defaultLabor(), baseContractionCalculations, baseRestClaculations)
+    it('should not be go-time', ()=>{
+      expect(result.isGoTime).toBe(false)
+    })
+    it('should note that the contractions are NOT long enough', ()=>{
+      expect(result.contractionsAreLongEnough).toBe(false)
     })
   })
 })

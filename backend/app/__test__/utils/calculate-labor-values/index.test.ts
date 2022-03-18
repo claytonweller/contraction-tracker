@@ -20,7 +20,9 @@ describe('calculateLaborValues', ()=>{
            ],
            "averageDurations":[90]
          },
+         "contractionsAreLongEnough": true,
          "isGoTime": false,
+         "laborIsLongEnough": false,
          "rest":  {
            "averageDuration": 270,
            "currentDuration": 1080,
@@ -29,6 +31,7 @@ describe('calculateLaborValues', ()=>{
              240,
            ],
          },
+         "restsAreShortEnough": false,
        }
     })
   })

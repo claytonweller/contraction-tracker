@@ -2,15 +2,18 @@ import { DateTime } from "luxon"
 import { ICalculatedLabor } from "../../types/CalculatedLabor"
 import { ILabor } from "../../types/Labor"
 
-export function checkIsGoTime(
+export function checkGoTimeValues(
   labor: ILabor, 
   contraction: ICalculatedLabor['contraction'], 
   rest: ICalculatedLabor['rest']
-): boolean {
+) {
   // all of these values assume a First time labor/pregnancy
   const contractionsAreLongEnough = contraction.averageDuration > 60
+  console.warn(rest.averageDuration)
   const restsAreShortEnough = rest.averageDuration < 180 
-  return contractionsAreLongEnough && restsAreShortEnough && checkLaborIsLongEnough(labor)
+  const laborIsLongEnough = checkLaborIsLongEnough(labor)
+  const isGoTime = contractionsAreLongEnough && restsAreShortEnough && laborIsLongEnough
+  return {contractionsAreLongEnough, restsAreShortEnough, laborIsLongEnough, isGoTime}
 }
 
 function checkLaborIsLongEnough(labor:ILabor): boolean {

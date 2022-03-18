@@ -31,6 +31,9 @@ export const defaultLabor = (params:{
     contractions,
     calculated: {
       isGoTime: false,
+      contractionsAreLongEnough: false, 
+      restsAreShortEnough: false, 
+      laborIsLongEnough: false,
       contraction: {
         averageDuration: 6000,
         averageIntensity: 1,
