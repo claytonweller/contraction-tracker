@@ -13,7 +13,7 @@ export default function Labor(props: IStateProps) {
 
   const {
     changeBackground,
-    labor: { startTime, calculated: { contraction } }
+    labor: { startTime, calculated: { laborIsLongEnough } }
   } = props
 
   useEffect(() => changeBackground('#282c34', 2000), [])
@@ -25,8 +25,13 @@ export default function Labor(props: IStateProps) {
       <Graphs {...props} />
       <h1 style={{ marginBlockStart: '5px' }}>Labor</h1>
       <div>
-        <StatBlock title='Total Duration' durationStart={startTime} durationFormat={'hh:mm:ss'} />
-        <ContractionStats stats={contraction} />
+        <StatBlock
+          title='Total Duration'
+          durationStart={startTime}
+          durationFormat={'hh:mm:ss'}
+          targetAchieved={laborIsLongEnough}
+        />
+        <ContractionStats labor={props.labor} />
         <RestStats labor={props.labor} />
       </div>
       <div style={{ paddingTop: '20px' }}>

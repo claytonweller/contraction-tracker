@@ -34,6 +34,12 @@
   font-size: calc(10px + 3vmin)
 }
 
+.Stat-block-value-achieved {
+  font-weight: bolder;
+  font-size: calc(14px + 3vmin);
+  color: #ff5050
+}
+
 .Stat-block {
   padding: 10px
 }
