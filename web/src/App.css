@@ -38,6 +38,11 @@
   padding: 10px
 }
 
+path {
+  fill: none;
+  stroke: white;
+}
+
 h4 {
   padding: 0px;
   margin: 0px;

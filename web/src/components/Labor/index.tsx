@@ -6,6 +6,8 @@ import OopsButton from './OopsButton';
 import StatBlock from './StatBlock';
 import ContractionStats from './ContractionStats';
 import RestStats from './RestStats';
+import Graphs from '../shared/Graphs';
+
 
 export default function Labor(props: IStateProps) {
 
@@ -20,7 +22,8 @@ export default function Labor(props: IStateProps) {
     <div>
       <HomeButton {...props} />
       <OopsButton {...props} />
-      <h1>Labor</h1>
+      <Graphs />
+      <h1 style={{ marginBlockStart: '5px' }}>Labor</h1>
       <div>
         <StatBlock title='Total Duration' durationStart={startTime} durationFormat={'hh:mm:ss'} />
         <ContractionStats stats={contraction} />
