@@ -8,6 +8,7 @@ describe('checkIsGoTime', ()=>{
     averageIntensity: 1,
     durations: [1],
     intensities: [1],
+    averageDurations:[1],
   }
 
   const baseRestClaculations = {

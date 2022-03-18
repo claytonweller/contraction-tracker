@@ -34,6 +34,7 @@ export const defaultLabor = (params:{
       contraction: {
         averageDuration: 6000,
         averageIntensity: 1,
+        averageDurations:[],
         durations: [],
         intensities: []
       },

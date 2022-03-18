@@ -38,8 +38,13 @@
   padding: 10px
 }
 
-.rest-duration-line {
+.average-duration-line {
   stroke: #cccccc;
+}
+
+.duration-line {
+  stroke: #777777;
+  stroke-dasharray: 2
 }
 
 .target-line {

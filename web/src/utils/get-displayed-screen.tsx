@@ -14,7 +14,7 @@ export const getDisplayedScreen = (
   if (screenName === 'labor') displayedScreen = Labor
   if (screenName === 'contraction') displayedScreen = Contraction
   if (screenName === 'intensity') displayedScreen = Intesnity
-  const itIsGoTime = labor.calculated.isGoTime && screenName === 'labor'
+  const itIsGoTime = labor.calculated?.isGoTime && screenName === 'labor'
   if (screenName === 'go-time' || itIsGoTime) displayedScreen = GoTime
   return displayedScreen
 }

@@ -13,6 +13,7 @@ export const defaultLabor = (userId:string = "1"): ILabor => {
       contraction: {
         averageDuration: 0,
         averageIntensity: 0,
+        averageDurations: [],
         durations: [],
         intensities: []
       },

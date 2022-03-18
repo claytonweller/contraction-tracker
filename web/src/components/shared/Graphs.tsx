@@ -18,17 +18,18 @@ const plotGraph = (labor: ILabor) => {
   const durationData = contraction.durations.map((dur, i) => {
     return [i, dur] as [number, number]
   })
-  // const averageDurationData = contraction.averageDurations!.map((dur, i) => {
-  //   return [i, dur] as [number, number]
-  // })
+  const averageDurationData = contraction.averageDurations.map((dur, i) => {
+    return [i, dur] as [number, number]
+  })
   const tragetData = contraction.durations.map((dur, i) => [i, 60] as [number, number])
   const domain = calculateDomain(durationData)
   const width = window.innerWidth - 120;
   const height = 50;
   const graph = createGraph(width, height)
   const line = createLine(width, height, domain)
-  addLineToGraph(graph, durationData, line, 'rest-duration-line')
+  addLineToGraph(graph, durationData, line, 'duration-line')
   addLineToGraph(graph, tragetData, line, 'target-line')
+  addLineToGraph(graph, averageDurationData, line, 'average-duration-line')
 }
 
 function calculateDomain(durationData: [number, number][]) {

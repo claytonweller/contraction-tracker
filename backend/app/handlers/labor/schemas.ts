@@ -13,6 +13,7 @@ export const calculatedLaborSchema = z.object({
     averageDuration: z.number(),
     averageIntensity: z.number(),
     durations: numberArray,
+    averageDurations: numberArray,
     intensities: numberArray
   }),
   rest: z.object({

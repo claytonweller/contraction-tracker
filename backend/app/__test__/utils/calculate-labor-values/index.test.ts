@@ -18,6 +18,7 @@ describe('calculateLaborValues', ()=>{
              1,
              2,
            ],
+           "averageDurations":[90]
          },
          "isGoTime": false,
          "rest":  {

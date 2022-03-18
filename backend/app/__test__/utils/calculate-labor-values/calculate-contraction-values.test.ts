@@ -15,6 +15,7 @@ describe('calculateContractionValues', () => {
            1,
            2,
          ],
+         "averageDurations":[90]
        })
   })
 })
