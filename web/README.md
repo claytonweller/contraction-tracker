@@ -1,46 +1,34 @@
-# Getting Started with Create React App
+# Contraction Tracker Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a very bare-bones react application. I created it using `create-react-app` it connects to the backend. In general the front end does as little calculation/logic as possible. It's just in charge of sending input information to the backend which interprets/presists.
 
-## Available Scripts
+## Installation
+- First make sure to deploy the backend to AWS (There are specific instrucitons for that in the `/backend/README.md`)
+- run `yarn`
+- create a `/web/.env` file and poplulate it with.
+  - REACT_APP_BACKEND_URL (This should be the url of your new API gateway)
+  - REACT_APP_BACKEND_API_KEY (Also associated with the new API gateway)
+- run `yarn start` and you're off the to races for local development.
 
-In the project directory, you can run:
+## Deployment
+Deployments for this application are through a statically hosted S3 bucket.
+- in your `.env` add these values for your AWS IAM user.
+  - AWS_SECRET_ACCESS_KEY
+  - AWS_ACCESS_KEY_ID
+- In AWS create a S3 bucket for hosting. 
+  - Make sure it allows ACL access
+  - In the properties all the way at the bottom enable static website hosting and point it at `index.html`
+- in `/web/package.json` update the "deploy" command to use your bucket (unless you used the exact name I used... which has my name in it)
+- Run `yarn deploy`
+- Wait. You may have to update your IAM user's permissions, or your bucket permission settings.
 
-### `npm start`
+## Structure / Organization
+Inisde `/web/src` - 
+- `/compoenents`: This is where all of the react specific elements are stored.
+- `/integrations`: Every time we're connecting to an external service like the backend or an api we put it here. I've chosen to do some "Clean Architecture" inspired dependency injection here because it makes testing easier, and also allows for a less painful transition to replacement services.
+- `/utils`: files with functionality which could be useful throughout the application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Techonolgy used
+- Typescript / React
+- D3 - for making the graphs!
+- Luxon - Lots of time stuff required. So Luxon DateTime is used ALL over the place.

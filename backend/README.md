@@ -7,7 +7,7 @@ The backend is a series of lambda functions each in charge of a single crud oper
 - run `yarn`
 - To make sure things are operating as expected run `yarn test`
 
-Bam you're done. There is no way to run funcitons locally (as a server), because this is all build to work on AWS lambda.
+Bam you're done. There is no way to run funcitons locally (as a server), because this is all built to work on AWS lambda.
 
 ## Deployment
 When you're ready to push changes up to AWS:
