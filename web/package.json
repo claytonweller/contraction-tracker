@@ -7,7 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "yarn build && aws s3 sync build/ s3://contraction-tracker-frontend --acl public-read"
+    "deploy": "yarn build && aws s3 sync build/ s3://contraction.claytonweller.com --acl public-read"
   },
   "dependencies": {
     "d3": "^7.3.0",
