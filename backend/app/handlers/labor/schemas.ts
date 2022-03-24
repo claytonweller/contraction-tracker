@@ -33,5 +33,6 @@ export const laborSchema = z.object({
   endTime: z.string().optional(),
   contractions:z.array(contractionSchema),
   calculated: calculatedLaborSchema,
-  bishopScore: z.number()
+  bishopScore: z.number(),
+  continuing: z.boolean().optional(),
 })

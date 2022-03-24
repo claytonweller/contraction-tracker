@@ -13,6 +13,7 @@ export default function Labor(props: IStateProps) {
 
   const {
     changeBackground,
+    transitionToScreen,
     labor: { startTime, calculated: { laborIsLongEnough } }
   } = props
 
@@ -36,6 +37,7 @@ export default function Labor(props: IStateProps) {
       </div>
       <div style={{ paddingTop: '20px' }}>
         <ContractionButton {...props} />
+        <button onClick={() => transitionToScreen('go-time')}></button>
       </div>
 
     </div >

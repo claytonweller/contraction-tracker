@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import HomeButton from '../shared/HomeButton';
 import { IStateProps } from '../../utils/with-state';
+import { ContinueButton } from './ContinueButton';
 
 export default function GoTime(props: IStateProps) {
   const { changeBackground } = props
@@ -41,11 +42,11 @@ export default function GoTime(props: IStateProps) {
     return () => clearTimeout(timer)
   }, [level])
 
-
   return (
     <div>
       <HomeButton {...props} />
       <h1 style={{ transitionDuration: `${transitionDuration}`, ...style }}>GoTime!</h1>
+      <ContinueButton {...props} />
     </div >
   );
 }

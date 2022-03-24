@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { getDisplayedScreen } from './utils/get-displayed-screen'
+import { getDisplayedScreen, IValidScreenNames } from './utils/get-displayed-screen'
 import { defaultLabor } from './utils/default-labor';
 import { checkForActiveLabor } from './utils/check-for-active-labor';
 import { defaultStateProps, withState } from './utils/with-state';
 
 export default function App() {
 
-  const [screenName, setScreen] = useState('home');
+  const [screenName, setScreen] = useState('home' as IValidScreenNames);
   const laborState = useState(defaultLabor())
   const setLabor = laborState[1]
   const [needStartingLabor, setNeedStartingLabor] = useState(true)

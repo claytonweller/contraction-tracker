@@ -8,4 +8,5 @@ export interface ILabor {
   contractions: IContraction[];
   calculated: ICalculatedLabor;
   bishopScore: number;
+  continuing?: boolean;
 }

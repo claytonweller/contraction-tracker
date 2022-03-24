@@ -2,11 +2,12 @@ import { Dispatch, SetStateAction } from "react"
 import { ILabor } from "../../types/Labor"
 import { backend } from "../integrations/back-end"
 import { defaultLabor } from "./default-labor"
+import { IValidScreenNames } from "./get-displayed-screen"
 
 export async function checkForActiveLabor(
   userId: string,
   setLabor: Dispatch<SetStateAction<ILabor>>,
-  setScreen: Dispatch<SetStateAction<string>>
+  setScreen: Dispatch<SetStateAction<IValidScreenNames>>
 ): Promise<void> {
   const labors = await backend.getLabors(userId)
   const latestLabor = labors[labors.length - 1]
@@ -16,7 +17,7 @@ export async function checkForActiveLabor(
   if (latestIsActive) resumeLabor(setScreen, latestLabor)
 }
 
-function resumeLabor(setScreen: Dispatch<SetStateAction<string>>, labor: ILabor) {
+function resumeLabor(setScreen: Dispatch<SetStateAction<IValidScreenNames>>, labor: ILabor) {
   const latestContraction = labor.contractions[labor.contractions.length - 1]
   if(!latestContraction) return setScreen('labor')
   const contractionInProgress = !latestContraction.endTime

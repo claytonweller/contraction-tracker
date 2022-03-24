@@ -2,15 +2,16 @@ import React, { ComponentType, Dispatch, SetStateAction } from 'react';
 import { ILabor } from '../../types/Labor';
 import { backend } from '../integrations/back-end';
 import { defaultLabor } from './default-labor';
+import { IValidScreenNames } from './get-displayed-screen';
 
 export function withState<T>(
   Component: ComponentType<T>,
-  setScreen: Dispatch<SetStateAction<string>>,
+  setScreen: Dispatch<SetStateAction<IValidScreenNames>>,
   laborState: [ILabor, Dispatch<SetStateAction<ILabor>>],
   setBackground: Dispatch<SetStateAction<{ color: string, speed: string }>>,
 ) {
   const [labor, setLabor] = laborState
-  const transitionToScreen = (screenName: string = 'home') => setScreen(screenName)
+  const transitionToScreen = (screenName: IValidScreenNames = 'home') => setScreen(screenName)
   const updateLabor = async (newLabor: ILabor) => {
     const savedLabor = await backend.updateLabor(newLabor)
     setLabor(savedLabor)
@@ -43,7 +44,7 @@ export const defaultStateProps: IStateProps = {
 }
 
 export interface IStateProps {
-  transitionToScreen: (screenName?: string) => void,
+  transitionToScreen: (screenName?: IValidScreenNames) => void,
   labor: ILabor,
   updateLabor: (labor: ILabor) => Promise<ILabor>,
   createLabor: (userId: string) => Promise<ILabor>,
